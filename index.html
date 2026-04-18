@@ -1,0 +1,2509 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ระบบตรวจสอบกรรมการดำเนินการสหกรณ์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   DESIGN: Thai Government Modern — Light Theme
+   Blue #1B4F8A | Gold #D4A017 | Clean & Official
+══════════════════════════════════════════════ */
+:root{
+  --P:         #1B4F8A;
+  --P2:        #154079;
+  --P3:        #2165B0;
+  --PL:        #EBF2FB;
+  --PL2:       #D6E6F7;
+  --G:         #0A7C4E;
+  --GL:        #E6F5EE;
+  --R:         #B91C1C;
+  --RL:        #FEE2E2;
+  --A:         #B45309;
+  --AL:        #FEF3C7;
+  --GD:        #C8960C;
+  --GDL:       #FEF9E1;
+  --W:         #FFFFFF;
+  --BG:        #F4F7FB;
+  --BG2:       #EEF3FA;
+  --BD:        #D1DCF0;
+  --BD2:       #B8CCE8;
+  --T1:        #0F1E38;
+  --T2:        #2D3F5E;
+  --T3:        #5A6E8C;
+  --T4:        #8A9AB5;
+  --SH:        0 1px 4px rgba(27,79,138,.08);
+  --SH2:       0 4px 16px rgba(27,79,138,.12);
+  --SH3:       0 8px 32px rgba(27,79,138,.16);
+  --R1:        8px;
+  --R2:        12px;
+  --R3:        16px;
+  --F:         'Noto Sans Thai',sans-serif;
+  --FM:        'IBM Plex Mono',monospace;
+  --TR:        .16s cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:14px}
+body{font-family:var(--F);background:var(--BG);color:var(--T1);min-height:100vh;line-height:1.6}
+::selection{background:var(--PL2)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--BD2);border-radius:99px}
+
+/* ══ LOGIN ══ */
+#loginWrap{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(150deg,#0A1C3E 0%,#1B4F8A 55%,#2165B0 100%);
+  position:relative;overflow:hidden;
+}
+#loginWrap::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,.04) 0,transparent 40%),
+    radial-gradient(circle at 80% 70%,rgba(255,255,255,.03) 0,transparent 40%);
+}
+#loginWrap::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200'%3E%3Cpath fill='rgba(255,255,255,.03)' d='M0,100L60,90C120,80,240,60,360,70C480,80,600,120,720,120C840,120,960,80,1080,70C1200,60,1320,80,1380,90L1440,100L1440,200L0,200Z'/%3E%3C/svg%3E") no-repeat bottom;
+}
+.login-card{
+  background:var(--W);border-radius:20px;padding:48px 44px;
+  width:420px;max-width:93vw;box-shadow:0 28px 80px rgba(0,0,0,.3);
+  position:relative;z-index:1;animation:fadeUp .45s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.login-header{text-align:center;margin-bottom:32px}
+.login-seal{
+  width:68px;height:68px;margin:0 auto 16px;
+  background:linear-gradient(135deg,var(--P),var(--P2));
+  border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:30px;box-shadow:0 6px 20px rgba(27,79,138,.4);
+}
+.login-title{font-size:1.3rem;font-weight:800;color:var(--T1);line-height:1.3;margin-bottom:4px}
+.login-sub{font-size:.82rem;color:var(--T3)}
+.login-dept{
+  display:inline-flex;align-items:center;gap:5px;margin-top:10px;
+  background:var(--PL);color:var(--P);border:1px solid var(--BD);
+  padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:600;
+}
+.btn-google{
+  width:100%;padding:12px;border-radius:var(--R1);
+  border:1.5px solid var(--BD);background:var(--W);
+  cursor:pointer;font-family:var(--F);font-size:.92rem;font-weight:600;
+  color:var(--T2);display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:var(--TR);margin-bottom:20px;
+}
+.btn-google:hover{border-color:var(--P);background:var(--PL);color:var(--P);box-shadow:var(--SH)}
+.g-svg{width:18px;height:18px;flex-shrink:0}
+.login-div{display:flex;align-items:center;gap:10px;color:var(--BD2);font-size:.78rem;margin-bottom:20px}
+.login-div::before,.login-div::after{content:'';flex:1;height:1px;background:var(--BD)}
+.demo-title{font-size:.75rem;color:var(--T3);text-align:center;margin-bottom:10px;font-weight:600}
+.demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.btn-demo{
+  padding:9px 6px;border-radius:var(--R1);border:1.5px solid var(--BD);
+  background:var(--W);cursor:pointer;font-family:var(--F);font-size:.75rem;
+  font-weight:700;text-align:center;transition:var(--TR);
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+.btn-demo span{font-size:1.2rem}
+.btn-demo.da{border-color:var(--P);color:var(--P);background:var(--PL)}
+.btn-demo.dp{border-color:var(--G);color:var(--G);background:var(--GL)}
+.btn-demo.dc{border-color:var(--A);color:var(--A);background:var(--AL)}
+.btn-demo:hover{transform:translateY(-2px);box-shadow:var(--SH)}
+
+/* ══ TOP BAR ══ */
+#shell{display:none}
+#shell.on{display:flex;flex-direction:column;min-height:100vh}
+.topbar{
+  background:var(--W);border-bottom:1px solid var(--BD);
+  height:58px;display:flex;align-items:center;padding:0 20px;
+  position:sticky;top:0;z-index:300;box-shadow:var(--SH);gap:12px;
+}
+.tb-brand{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer}
+.tb-logo{
+  width:34px;height:34px;background:var(--P);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+}
+.tb-name{font-size:.88rem;font-weight:800;color:var(--P);line-height:1.2}
+.tb-name small{font-size:.68rem;font-weight:400;color:var(--T3);display:block}
+.tb-sep{width:1px;height:28px;background:var(--BD);flex-shrink:0}
+.tb-nav{display:flex;gap:1px;flex:1;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+.tb-nav::-webkit-scrollbar{display:none}
+.tnav{
+  padding:6px 13px;border-radius:7px;cursor:pointer;border:none;background:none;
+  font-family:var(--F);font-size:.8rem;font-weight:500;color:var(--T3);
+  transition:var(--TR);white-space:nowrap;display:flex;align-items:center;gap:5px;
+}
+.tnav:hover,.tnav.on{color:var(--P);background:var(--PL);font-weight:600}
+.tnav .n-badge{
+  background:var(--R);color:#fff;border-radius:99px;
+  padding:1px 5px;font-size:.65rem;font-weight:800;min-width:16px;text-align:center;
+}
+.tb-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
+.role-chip{
+  padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.rc-admin{background:#EEF2FF;color:#4338CA;border:1px solid #C7D2FE}
+.rc-prov {background:var(--GL);color:var(--G);border:1px solid #6EE7B7}
+.rc-coop {background:var(--AL);color:var(--A);border:1px solid #FCD34D}
+.avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--PL2);color:var(--P);font-weight:800;font-size:.82rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;border:2px solid var(--BD);transition:var(--TR);
+  position:relative;
+}
+.avatar:hover{border-color:var(--P)}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.user-menu{
+  position:absolute;top:calc(100% + 8px);right:0;
+  background:var(--W);border:1px solid var(--BD);border-radius:var(--R2);
+  box-shadow:var(--SH3);min-width:200px;display:none;z-index:999;overflow:hidden;
+}
+.user-menu.open{display:block;animation:fadeUp .15s ease}
+.um-header{padding:14px 16px;background:var(--PL);border-bottom:1px solid var(--BD)}
+.um-name{font-weight:700;font-size:.9rem;color:var(--T1)}
+.um-email{font-size:.72rem;color:var(--T3)}
+.um-item{
+  padding:10px 16px;cursor:pointer;font-size:.85rem;color:var(--T2);
+  display:flex;align-items:center;gap:8px;transition:var(--TR);
+}
+.um-item:hover{background:var(--BG)}
+.um-item.danger{color:var(--R)}
+
+/* ══ LAYOUT ══ */
+.body-wrap{display:flex;flex:1;overflow:hidden}
+.content{flex:1;overflow-y:auto;padding:24px;max-width:100%}
+
+/* ══ PAGE / TAB SYSTEM ══ */
+.page{display:none}
+.page.on{display:block;animation:fadeUp .2s ease both}
+
+/* ══ PAGE HEADER ══ */
+.pg-hd{margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pg-hd-l h1{font-size:1.3rem;font-weight:800;color:var(--T1)}
+.pg-hd-l p{font-size:.8rem;color:var(--T3);margin-top:2px}
+.breadcrumb{font-size:.72rem;color:var(--T4);margin-bottom:4px;display:flex;align-items:center;gap:5px}
+.breadcrumb b{color:var(--P);font-weight:600}
+
+/* ══ STATS ══ */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px}
+.sc{
+  background:var(--W);border-radius:var(--R2);padding:18px 16px;
+  border:1px solid var(--BD);box-shadow:var(--SH);position:relative;
+  overflow:hidden;transition:var(--TR);cursor:default;
+}
+.sc:hover{box-shadow:var(--SH2);transform:translateY(-1px)}
+.sc::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.sc.s0::after{background:var(--P)}
+.sc.s1::after{background:var(--P3)}
+.sc.s2::after{background:var(--G)}
+.sc.s3::after{background:var(--A)}
+.sc.s4::after{background:var(--R)}
+.sc-ico{font-size:1.5rem;margin-bottom:6px}
+.sc-val{font-size:1.9rem;font-weight:900;line-height:1;font-family:var(--FM)}
+.sc.s2 .sc-val{color:var(--G)}
+.sc.s3 .sc-val{color:var(--A)}
+.sc.s4 .sc-val{color:var(--R)}
+.sc.s0 .sc-val,.sc.s1 .sc-val{color:var(--P)}
+.sc-label{font-size:.72rem;color:var(--T3);margin-top:3px;font-weight:500}
+
+/* ══ PANEL ══ */
+.panel{background:var(--W);border-radius:var(--R2);border:1px solid var(--BD);box-shadow:var(--SH);overflow:hidden;margin-bottom:18px}
+.panel-hd{
+  padding:13px 18px;border-bottom:1px solid var(--BG2);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+}
+.panel-title{font-size:.9rem;font-weight:700;color:var(--T1);display:flex;align-items:center;gap:7px}
+.panel-body{padding:18px}
+.panel-body.np{padding:0}
+
+/* ══ FILTER BAR ══ */
+.fbar{
+  background:var(--BG2);border:1px solid var(--BD);border-radius:var(--R1);
+  padding:14px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;
+}
+.fg{display:flex;flex-direction:column;gap:4px;min-width:140px}
+.fg label{font-size:.68rem;font-weight:700;color:var(--T3);text-transform:uppercase;letter-spacing:.4px}
+.fg input,.fg select{
+  padding:7px 10px;border:1.5px solid var(--BD);border-radius:7px;
+  font-family:var(--F);font-size:.83rem;color:var(--T1);background:var(--W);
+  transition:var(--TR);
+}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--P);box-shadow:0 0 0 3px rgba(27,79,138,.1)}
+.fg.fw{flex:1;min-width:200px}
+.fbar-count{margin-left:auto;font-size:.75rem;color:var(--T3);align-self:flex-end;padding-bottom:1px}
+
+/* ══ TABLE ══ */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+thead th{
+  background:var(--BG2);color:var(--T2);padding:9px 13px;
+  text-align:left;font-weight:700;border-bottom:2px solid var(--BD);
+  font-size:.73rem;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;
+  position:sticky;top:0;z-index:2;
+}
+th.c,td.c{text-align:center}
+tbody tr{border-bottom:1px solid var(--BG2);transition:var(--TR)}
+tbody tr:hover{background:var(--PL)}
+tbody tr:last-child{border-bottom:none}
+td{padding:9px 13px;vertical-align:middle}
+td.bold{font-weight:700}
+td.mono{font-family:var(--FM);font-size:.78rem}
+td.name{font-weight:600}
+td.dim{color:var(--T3);font-size:.78rem}
+.t-empty{text-align:center;padding:44px;color:var(--T4)}
+.t-empty .ei{font-size:2rem;margin-bottom:8px}
+
+/* ══ PILLS / BADGES ══ */
+.pill{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:20px;font-size:.72rem;font-weight:700;white-space:nowrap}
+.p-ok  {background:var(--GL);color:var(--G);border:1px solid #6EE7B7}
+.p-info{background:var(--AL);color:var(--A);border:1px solid #FCD34D}
+.p-warn{background:var(--RL);color:var(--R);border:1px solid #FCA5A5}
+.p-over{background:#1C0505;color:#F87171;border:1px solid #7F1D1D}
+.p-blue{background:var(--PL);color:var(--P);border:1px solid var(--BD2)}
+.p-gray{background:var(--BG2);color:var(--T3);border:1px solid var(--BD)}
+
+.tc{display:inline-block;padding:2px 7px;border-radius:5px;font-family:var(--FM);font-size:.75rem;font-weight:700;background:var(--PL2);color:var(--P);border:1px solid var(--BD2)}
+
+/* ══ BUTTONS ══ */
+.btn{
+  padding:8px 16px;border-radius:var(--R1);font-family:var(--F);font-size:.83rem;
+  font-weight:600;cursor:pointer;border:none;transition:var(--TR);
+  display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--P);color:#fff}
+.btn-p:hover{background:var(--P2);box-shadow:var(--SH2)}
+.btn-g{background:var(--G);color:#fff}
+.btn-g:hover{background:#085f3b}
+.btn-r{background:var(--R);color:#fff}
+.btn-r:hover{background:#991b1b}
+.btn-gd{background:var(--GD);color:#fff}
+.btn-gd:hover{background:#a07808}
+.btn-o{background:var(--W);color:var(--T2);border:1.5px solid var(--BD)}
+.btn-o:hover{border-color:var(--P);color:var(--P);background:var(--PL)}
+.btn-sm{padding:5px 11px;font-size:.75rem}
+.btn-icon{padding:5px 9px}
+.btn-grp{display:flex;gap:7px;flex-wrap:wrap}
+
+/* ══ MODAL ══ */
+.overlay{
+  position:fixed;inset:0;background:rgba(10,28,62,.5);z-index:900;
+  display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(3px);padding:16px;
+}
+.overlay.open{display:flex}
+.modal{
+  background:var(--W);border-radius:var(--R3);width:620px;max-width:100%;
+  max-height:90vh;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 32px 80px rgba(0,0,0,.28);animation:modalIn .2s ease both;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal.modal-sm{width:440px}
+.mhd{
+  padding:18px 22px;border-bottom:1px solid var(--BG2);
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.m-title{font-size:.95rem;font-weight:800;color:var(--T1)}
+.m-close{
+  width:28px;height:28px;border-radius:7px;border:none;
+  background:var(--BG2);cursor:pointer;font-size:.9rem;
+  display:flex;align-items:center;justify-content:center;color:var(--T3);transition:var(--TR);
+}
+.m-close:hover{background:var(--RL);color:var(--R)}
+.mbody{padding:22px;overflow-y:auto;flex:1}
+.mft{padding:14px 22px;border-top:1px solid var(--BG2);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0}
+
+/* ══ FORM ══ */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg-full{grid-column:1/-1}
+.form-label{font-size:.75rem;font-weight:700;color:var(--T2);margin-bottom:4px;display:block}
+.form-label .req{color:var(--R);margin-left:2px}
+.form-input,.form-sel,.form-ta{
+  width:100%;padding:9px 11px;border:1.5px solid var(--BD);border-radius:8px;
+  font-family:var(--F);font-size:.88rem;color:var(--T1);background:var(--W);transition:var(--TR);
+}
+.form-input:focus,.form-sel:focus,.form-ta:focus{outline:none;border-color:var(--P);box-shadow:0 0 0 3px rgba(27,79,138,.1)}
+.form-ta{resize:vertical;min-height:72px}
+.form-hint{font-size:.7rem;color:var(--T3);margin-top:3px}
+
+/* ══ VERIFY PAGE ══ */
+.v-hero{
+  background:linear-gradient(135deg,var(--P2) 0%,var(--P) 55%,var(--P3) 100%);
+  border-radius:var(--R3);padding:28px;color:#fff;margin-bottom:18px;
+  position:relative;overflow:hidden;
+}
+.v-hero::before{content:'';position:absolute;right:-30px;top:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.05)}
+.v-form{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:flex-end;position:relative;z-index:1}
+.vfg{display:flex;flex-direction:column;gap:4px}
+.vfg label{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.3px}
+.vfg input{
+  padding:9px 11px;border:1.5px solid rgba(255,255,255,.25);border-radius:8px;
+  font-family:var(--F);font-size:.88rem;color:#fff;background:rgba(255,255,255,.12);transition:var(--TR);
+}
+.vfg input::placeholder{color:rgba(255,255,255,.35)}
+.vfg input:focus{outline:none;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.18)}
+
+.v-result{border-radius:var(--R2);padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.vr-ok  {background:var(--GL);border:2px solid #6EE7B7}
+.vr-info{background:var(--AL);border:2px solid #FCD34D}
+.vr-warn{background:var(--RL);border:2px solid #FCA5A5}
+.vr-over{background:#1C0505;border:2px solid #7F1D1D}
+.vr-item{display:flex;flex-direction:column;gap:2px}
+.vr-lbl{font-size:.68rem;font-weight:700;color:var(--T3);text-transform:uppercase;letter-spacing:.4px}
+.vr-val{font-size:.95rem;font-weight:700}
+.vr-over .vr-lbl{color:#F87171}
+.vr-over .vr-val{color:#fff}
+.verdict{grid-column:1/-1;text-align:center;padding:16px;border-radius:var(--R1);background:rgba(255,255,255,.5)}
+.vr-over .verdict{background:rgba(255,255,255,.07)}
+.v-icon{font-size:2rem;margin-bottom:5px}
+.v-title{font-size:1.2rem;font-weight:900}
+.v-desc{font-size:.82rem;margin-top:4px;color:var(--T2)}
+.vr-over .v-title,.vr-over .v-desc{color:#fff}
+
+/* ══ IMPORT ZONE ══ */
+.iz{
+  border:2px dashed var(--BD2);border-radius:var(--R2);padding:36px 20px;
+  text-align:center;cursor:pointer;transition:var(--TR);background:var(--BG);
+}
+.iz:hover,.iz.dv{border-color:var(--P);background:var(--PL)}
+.iz-icon{font-size:2.2rem;margin-bottom:10px}
+.iz-text{font-size:.88rem;font-weight:600;color:var(--T2)}
+.iz-sub{font-size:.75rem;color:var(--T3);margin-top:3px}
+
+/* ══ SYNC STATUS ══ */
+.sync-bar{
+  background:var(--GL);border:1px solid #6EE7B7;border-radius:var(--R1);
+  padding:8px 14px;font-size:.78rem;display:flex;align-items:center;gap:8px;
+  color:var(--G);margin-bottom:14px;
+}
+.sync-bar.warn{background:var(--AL);border-color:#FCD34D;color:var(--A)}
+.sync-bar.err {background:var(--RL);border-color:#FCA5A5;color:var(--R)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+.sync-dot.pulse{animation:pulse 1.5s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+
+/* ══ TOAST ══ */
+#toastWrap{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:7px}
+.toast{
+  background:var(--T1);color:#fff;padding:11px 16px;border-radius:var(--R1);
+  font-size:.85rem;box-shadow:var(--SH3);display:flex;align-items:center;gap:9px;
+  min-width:260px;max-width:360px;animation:fadeUp .25s ease;border-left:4px solid var(--T4);
+}
+.toast.ok  {border-left-color:var(--G)}
+.toast.err {border-left-color:var(--R);background:#1C0505}
+.toast.warn{border-left-color:var(--A)}
+.toast.info{border-left-color:var(--P)}
+
+/* ══ PROGRESS ══ */
+.progress{height:5px;background:var(--BG2);border-radius:99px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;border-radius:99px;transition:width .4s ease}
+
+/* ══ COOP SELF PORTAL ══ */
+.portal-hero{
+  background:linear-gradient(135deg,#0A3060,var(--P));
+  border-radius:var(--R3);padding:28px 32px;color:#fff;margin-bottom:20px;
+  display:flex;align-items:center;gap:24px;
+}
+.portal-icon{font-size:3rem;flex-shrink:0}
+.portal-name{font-size:1.4rem;font-weight:900;margin-bottom:4px}
+.portal-sub{font-size:.85rem;opacity:.7}
+.portal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.ps{background:rgba(255,255,255,.12);border-radius:var(--R1);padding:12px;text-align:center}
+.ps-val{font-size:1.6rem;font-weight:900;font-family:var(--FM)}
+.ps-lbl{font-size:.7rem;opacity:.7}
+
+/* ══ GOOGLE SHEET CONFIG ══ */
+.gs-config{background:var(--PL);border:1px solid var(--BD2);border-radius:var(--R2);padding:20px;margin-bottom:18px}
+.gs-url-row{display:flex;gap:8px;align-items:flex-end}
+.gs-url-input{flex:1;padding:9px 12px;border:1.5px solid var(--BD2);border-radius:8px;font-family:var(--F);font-size:.83rem;background:var(--W)}
+.gs-url-input:focus{outline:none;border-color:var(--P)}
+
+/* ══ GITHUB BADGE ══ */
+.gh-badge{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 12px;
+  border-radius:20px;background:#1a1a1a;color:#fff;font-size:.75rem;font-weight:600;
+  text-decoration:none;transition:var(--TR);
+}
+.gh-badge:hover{background:#333}
+
+/* ══ DONUT CHART ══ */
+.donut-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:140px;height:140px;flex-shrink:0}
+.donut-center{position:absolute;text-align:center;pointer-events:none}
+.donut-center-val{font-size:1.5rem;font-weight:900;font-family:var(--FM);color:var(--T1)}
+.donut-center-lbl{font-size:.65rem;color:var(--T3)}
+
+/* ══ STEPS ══ */
+.steps{counter-reset:step;display:flex;flex-direction:column;gap:12px}
+.step{display:flex;gap:14px;padding:14px;background:var(--BG2);border-radius:var(--R1);align-items:flex-start}
+.step-num{
+  counter-increment:step;content:counter(step);
+  width:28px;height:28px;border-radius:50%;background:var(--P);color:#fff;
+  font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.step-body h4{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.step-body p{font-size:.78rem;color:var(--T3);line-height:1.5}
+.code-block{
+  background:#0d1117;color:#58a6ff;border-radius:8px;padding:12px 14px;
+  font-family:var(--FM);font-size:.75rem;margin-top:8px;white-space:pre-wrap;
+  word-break:break-all;line-height:1.7;
+}
+.code-block .cm{color:#8b949e}
+.code-block .str{color:#a5d6ff}
+.code-block .kw{color:#ff7b72}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:1100px){.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:780px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .v-form{grid-template-columns:1fr 1fr}
+  .tb-nav{display:none}
+  .v-result{grid-template-columns:1fr}
+}
+@media(max-width:500px){
+  .stats{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  .content{padding:14px}
+  .portal-hero{flex-direction:column;text-align:center}
+}
+@media print{
+  .topbar,.fbar,.btn-grp,.overlay,#toastWrap,.mft{display:none!important}
+  .panel{box-shadow:none;border:1px solid #ccc}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     LOGIN
+════════════════════════════════ -->
+<div id="loginWrap">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-seal">⚖️</div>
+      <div class="login-title">ระบบตรวจสอบ<br>กรรมการดำเนินการสหกรณ์</div>
+      <div class="login-sub">Board Term Verification System v3.0</div>
+      <div class="login-dept">🏛️ กรมส่งเสริมสหกรณ์</div>
+    </div>
+
+    <!-- Google Sign-In container -->
+    <div id="g_id_onload"
+         data-client_id="YOUR_GOOGLE_CLIENT_ID_HERE"
+         data-callback="onGoogleLogin"
+         data-auto_prompt="false">
+    </div>
+    <div id="googleSignInBtn" style="display:flex;justify-content:center;margin-bottom:16px">
+      <div class="g_id_signin"
+           data-type="standard"
+           data-size="large"
+           data-theme="outline"
+           data-text="signin_with"
+           data-shape="rectangular"
+           data-locale="th"
+           data-width="330">
+      </div>
+    </div>
+
+    <!-- Fallback button (ใช้เมื่อยังไม่ได้ตั้ง Client ID) -->
+    <button class="btn-google" id="btnGoogleFallback" onclick="loginGoogleFallback()" style="display:none">
+      <svg class="g-svg" viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+      </svg>
+      เข้าสู่ระบบด้วย Google
+    </button>
+
+    <div class="login-div">หรือทดสอบด้วยบัญชีตัวอย่าง</div>
+
+    <div class="demo-title">เลือกบทบาทสำหรับทดสอบระบบ</div>
+    <div class="demo-grid">
+      <button class="btn-demo da" onclick="loginDemo('admin')"><span>👑</span>ผู้ดูแลระบบ</button>
+      <button class="btn-demo dp" onclick="loginDemo('province')"><span>🏛️</span>เจ้าหน้าที่จังหวัด</button>
+      <button class="btn-demo dc" onclick="loginDemo('coop')"><span>🌾</span>สหกรณ์</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     APP SHELL
+════════════════════════════════ -->
+<div id="shell">
+  <header class="topbar">
+    <div class="tb-brand" onclick="goPage('dashboard')">
+      <div class="tb-logo">⚖️</div>
+      <div class="tb-name">ระบบตรวจสอบกรรมการ<small id="tbScope">—</small></div>
+    </div>
+    <div class="tb-sep"></div>
+    <nav class="tb-nav" id="mainNav"></nav>
+    <div class="tb-right">
+      <div class="sync-dot pulse" id="syncDot" title="สถานะซิงค์" style="width:8px;height:8px;border-radius:50%;background:var(--G);flex-shrink:0"></div>
+      <span class="role-chip" id="roleChip"></span>
+      <div class="avatar" id="avatarBtn" onclick="toggleUserMenu()">
+        <img id="avatarImg" src="" alt="" style="display:none">
+        <span id="avatarLetter"></span>
+        <div class="user-menu" id="userMenu">
+          <div class="um-header">
+            <div class="um-name" id="umName">—</div>
+            <div class="um-email" id="umEmail">—</div>
+          </div>
+          <div class="um-item" onclick="goPage('settings')">⚙️ ตั้งค่าการซิงค์</div>
+          <div class="um-item danger" onclick="doLogout()">🚪 ออกจากระบบ</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="body-wrap">
+    <div class="content" id="mainContent">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="page" id="page-dashboard">
+        <div class="pg-hd">
+          <div class="pg-hd-l">
+            <div class="breadcrumb">🏠 หน้าหลัก › <b>แดชบอร์ด</b></div>
+            <h1>ภาพรวมการดำรงตำแหน่งกรรมการ</h1>
+            <p id="dashDate"></p>
+          </div>
+          <div class="btn-grp">
+            <button class="btn btn-o btn-sm" onclick="syncNow()">🔄 ซิงค์ข้อมูล</button>
+            <button class="btn btn-o btn-sm" onclick="window.print()">🖨️ พิมพ์</button>
+            <button class="btn btn-p btn-sm" onclick="exportAll()">⬇️ Export</button>
+          </div>
+        </div>
+
+        <div id="syncStatusBar"></div>
+
+        <div class="stats" id="dashStats"></div>
+
+        <div style="display:grid;grid-template-columns:1fr 280px;gap:18px;margin-bottom:18px">
+          <div class="panel">
+            <div class="panel-hd">
+              <div class="panel-title">⚠️ รายการที่ต้องดำเนินการ</div>
+              <span class="pill p-warn" id="alertPill">0 รายการ</span>
+            </div>
+            <div class="panel-body np">
+              <div class="tw" style="max-height:300px;overflow-y:auto">
+                <table><thead><tr>
+                  <th>#</th><th>ชื่อกรรมการ</th><th>สหกรณ์</th>
+                  <th class="c">รวมปี</th><th class="c">รหัสวาระ</th><th class="c">สถานะ</th>
+                </tr></thead><tbody id="alertBody"></tbody></table>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-hd"><div class="panel-title">📊 สัดส่วนสถานะ</div></div>
+            <div class="panel-body" style="display:flex;flex-direction:column;align-items:center;gap:14px">
+              <div class="donut-wrap">
+                <canvas id="donutChart" width="140" height="140"></canvas>
+                <div class="donut-center">
+                  <div class="donut-center-val" id="donutVal">0</div>
+                  <div class="donut-center-lbl">คนทั้งหมด</div>
+                </div>
+              </div>
+              <div id="donutLegend" style="width:100%;display:flex;flex-direction:column;gap:7px"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-hd">
+            <div class="panel-title">🏢 สรุปรายสหกรณ์</div>
+            <button class="btn btn-o btn-sm" onclick="goPage('boards')">ดูทั้งหมด →</button>
+          </div>
+          <div class="panel-body np">
+            <div class="tw"><table>
+              <thead><tr><th>#</th><th>ชื่อสหกรณ์</th><th>ประเภท</th>
+              <th class="c">กรรมการ</th><th class="c">✅ปกติ</th>
+              <th class="c">⚠️ครบวาระ1</th><th class="c">🔴ต้องเว้น</th><th class="c">สถานะ</th></tr></thead>
+              <tbody id="coopSummary"></tbody>
+            </table></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── COOP PORTAL (สหกรณ์ self-service) ── -->
+      <div class="page" id="page-portal">
+        <div class="portal-hero" id="portalHero">
+          <div class="portal-icon">🌾</div>
+          <div style="flex:1">
+            <div class="portal-name" id="portalName">—</div>
+            <div class="portal-sub" id="portalSub">—</div>
+            <div class="portal-stats" id="portalStats"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-hd">
+            <div class="panel-title">👥 รายชื่อกรรมการของสหกรณ์</div>
+            <button class="btn btn-p btn-sm" onclick="openBoardModal()">➕ เพิ่มกรรมการ</button>
+          </div>
+          <div class="panel-body np">
+            <div class="tw"><table>
+              <thead><tr>
+                <th>#</th><th>ชื่อ-นามสกุล</th><th class="c">ตำแหน่ง</th>
+                <th class="c">เริ่มวาระ</th><th class="c">สิ้นสุด</th>
+                <th class="c">ปีปัจจุบัน</th><th class="c">ปีก่อนหน้า</th>
+                <th class="c">รวม</th><th class="c">รหัสวาระ</th>
+                <th class="c">ประเภท</th><th class="c">สถานะ</th><th class="c">จัดการ</th>
+              </tr></thead>
+              <tbody id="portalBody"></tbody>
+            </table></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-hd"><div class="panel-title">📥 นำเข้ากรรมการ (CSV)</div></div>
+          <div class="panel-body">
+            <div class="iz" id="portalImportZone"
+                 onclick="document.getElementById('portalFile').click()"
+                 ondragover="dzOver(event)" ondragleave="dzLeave(event)" ondrop="dzDrop(event,'portal')">
+              <div class="iz-icon">📂</div>
+              <div class="iz-text">คลิกหรือลากไฟล์ CSV มาวาง</div>
+              <div class="iz-sub">รองรับ .CSV — วันที่รูปแบบ YYYY-MM-DD</div>
+            </div>
+            <input type="file" id="portalFile" accept=".csv" style="display:none" onchange="handleImport(event,'portal')">
+            <div id="portalImportPreview"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── BOARDS ── -->
+      <div class="page" id="page-boards">
+        <div class="pg-hd">
+          <div class="pg-hd-l">
+            <div class="breadcrumb">🏠 หน้าหลัก › <b>ข้อมูลกรรมการ</b></div>
+            <h1>ข้อมูลกรรมการดำเนินการ</h1>
+            <p>ตรวจสอบและจัดการกรรมการทุกสหกรณ์</p>
+          </div>
+          <div class="btn-grp" id="boardPageAct"></div>
+        </div>
+
+        <div class="fbar" id="boardFilters">
+          <div class="fg fw"><label>🔍 ค้นหา</label><input id="fSearch" placeholder="ชื่อ / สหกรณ์..." oninput="applyBF()"></div>
+          <div class="fg"><label>🏢 สหกรณ์</label><select id="fCoop" onchange="applyBF()"><option value="">ทั้งหมด</option></select></div>
+          <div class="fg"><label>📂 ประเภท</label><select id="fCoopType" onchange="applyBF()">
+            <option value="">ทั้งหมด</option>
+            <option>สหกรณ์การเกษตร</option><option>สหกรณ์ออมทรัพย์</option>
+            <option>สหกรณ์เครดิตยูเนี่ยน</option><option>สหกรณ์บริการ</option>
+            <option>สหกรณ์ร้านค้า</option><option>สหกรณ์นิคม</option><option>สหกรณ์ประมง</option>
+          </select></div>
+          <div class="fg"><label>✅ สถานะ</label><select id="fStatus" onchange="applyBF()">
+            <option value="">ทั้งหมด</option>
+            <option value="OK">✅ ปกติ</option><option value="INFO">⚠️ ครบวาระ 1</option>
+            <option value="WARN">🔴 ต้องเว้นวรรค</option><option value="OVER">⛔ เกินกำหนด</option>
+          </select></div>
+          <div class="fg"><label>🗓️ รหัสวาระ</label><select id="fTerm" onchange="applyBF()">
+            <option value="">ทั้งหมด</option>
+            <option>วาระ 1/1</option><option>วาระ 1/2</option>
+            <option>วาระ 2/1</option><option>วาระ 2/2</option>
+          </select></div>
+          <div class="fg"><label>👤 ประเภท</label><select id="fType" onchange="applyBF()">
+            <option value="">ทั้งหมด</option><option value="ปกติ">ปกติ</option>
+            <option value="แทนตำแหน่ง">แทนตำแหน่ง</option>
+          </select></div>
+          <div class="fg"><label>📍 อำเภอ</label><input id="fDist" placeholder="อำเภอ..." oninput="applyBF()"></div>
+          <button class="btn btn-o btn-sm" onclick="clearBF()" style="align-self:flex-end">ล้าง</button>
+          <span class="fbar-count" id="bfCount"></span>
+        </div>
+
+        <div class="panel">
+          <div class="panel-hd">
+            <div class="panel-title">👥 รายชื่อกรรมการ</div>
+            <div class="btn-grp">
+              <button class="btn btn-o btn-sm" onclick="exportBoardCSV()">⬇️ CSV</button>
+            </div>
+          </div>
+          <div class="panel-body np"><div class="tw">
+            <table><thead><tr>
+              <th class="c">#</th><th>ชื่อ-นามสกุล</th><th>สหกรณ์</th>
+              <th class="c">เริ่มวาระ</th><th class="c">สิ้นสุดวาระ</th>
+              <th class="c">ปีปัจจุบัน</th><th class="c">ปีก่อนหน้า</th>
+              <th class="c">รวมปี</th><th class="c">รหัสวาระ</th>
+              <th class="c">ประเภท</th><th class="c">สถานะ</th><th class="c">จัดการ</th>
+            </tr></thead><tbody id="boardBody"></tbody></table>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- ── COOPS ── -->
+      <div class="page" id="page-coops">
+        <div class="pg-hd">
+          <div class="pg-hd-l">
+            <div class="breadcrumb">🏠 หน้าหลัก › <b>สหกรณ์</b></div>
+            <h1>จัดการข้อมูลสหกรณ์</h1>
+          </div>
+          <div class="btn-grp" id="coopPageAct"></div>
+        </div>
+        <div class="fbar">
+          <div class="fg fw"><label>🔍 ค้นหา</label><input id="fcS" placeholder="ชื่อ / จังหวัด / อีเมล..." oninput="applyCF()"></div>
+          <div class="fg"><label>📂 ประเภท</label><select id="fcT" onchange="applyCF()">
+            <option value="">ทั้งหมด</option>
+            <option>สหกรณ์การเกษตร</option><option>สหกรณ์ออมทรัพย์</option>
+            <option>สหกรณ์เครดิตยูเนี่ยน</option><option>สหกรณ์บริการ</option>
+          </select></div>
+          <div class="fg"><label>📍 จังหวัด</label><input id="fcP" placeholder="จังหวัด..." oninput="applyCF()"></div>
+          <div class="fg"><label>👥 กลุ่ม</label><input id="fcG" placeholder="กลุ่ม..." oninput="applyCF()"></div>
+          <button class="btn btn-o btn-sm" onclick="clearCF()" style="align-self:flex-end">ล้าง</button>
+          <span class="fbar-count" id="cfCount"></span>
+        </div>
+        <div class="panel">
+          <div class="panel-hd">
+            <div class="panel-title">🏢 รายชื่อสหกรณ์</div>
+            <button class="btn btn-o btn-sm" onclick="exportCoopCSV()">⬇️ CSV</button>
+          </div>
+          <div class="panel-body np"><div class="tw">
+            <table><thead><tr>
+              <th>#</th><th>ชื่อสหกรณ์</th><th>ประเภท</th><th>จังหวัด</th>
+              <th>อำเภอ</th><th>กลุ่ม</th><th class="c">Gmail</th>
+              <th class="c">กรรมการ</th><th class="c">ปัญหา</th><th class="c">จัดการ</th>
+            </tr></thead><tbody id="coopBody"></tbody></table>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- ── VERIFY ── -->
+      <div class="page" id="page-verify">
+        <div class="pg-hd">
+          <div class="pg-hd-l">
+            <div class="breadcrumb">🏠 หน้าหลัก › <b>ตรวจสอบวาระ</b></div>
+            <h1>ตรวจสอบวาระการดำรงตำแหน่งรายบุคคล</h1>
+          </div>
+        </div>
+
+        <!-- FIX: Now correctly calculates -->
+        <div class="v-hero">
+          <h2 style="font-size:1rem;font-weight:800;margin-bottom:18px;position:relative;z-index:1">🔍 กรอกข้อมูลเพื่อตรวจสอบ</h2>
+          <div class="v-form">
+            <div class="vfg">
+              <label>ชื่อ-นามสกุล</label>
+              <input type="text" id="vName" placeholder="ชื่อกรรมการ...">
+            </div>
+            <div class="vfg">
+              <label>วันที่เริ่มวาระปัจจุบัน ★</label>
+              <input type="date" id="vStart" onchange="doVerify()">
+            </div>
+            <div class="vfg">
+              <label>ปีดำรงตำแหน่งก่อนหน้า (สะสม)</label>
+              <input type="number" id="vPrev" value="0" min="0" max="20" oninput="doVerify()">
+            </div>
+            <button class="btn btn-gd" onclick="doVerify()" style="height:38px">ตรวจสอบ</button>
+          </div>
+        </div>
+
+        <div id="verifyResult" style="display:none"></div>
+
+        <div class="panel">
+          <div class="panel-hd"><div class="panel-title">📜 ตารางอ้างอิงกฎระเบียบ</div></div>
+          <div class="panel-body np"><div class="tw"><table>
+            <thead><tr>
+              <th class="c">รวมปี</th><th class="c">รหัสวาระ</th>
+              <th class="c">วาระที่</th><th class="c">ปีในวาระ</th>
+              <th class="c">สถานะ</th><th>คำอธิบาย</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="c mono">1</td><td class="c"><span class="tc">วาระ 1/1</span></td><td class="c">1</td><td class="c">1</td><td class="c"><span class="pill p-ok">✅ ปกติ</span></td><td>ดำรงตำแหน่งปีแรก อยู่ในเกณฑ์ปกติ</td></tr>
+              <tr><td class="c mono">2</td><td class="c"><span class="tc">วาระ 1/2</span></td><td class="c">1</td><td class="c">2</td><td class="c"><span class="pill p-info">⚠️ ครบวาระ 1</span></td><td>ครบวาระแรก ต่อวาระ 2 ได้อีก 2 ปี</td></tr>
+              <tr><td class="c mono">3</td><td class="c"><span class="tc">วาระ 2/1</span></td><td class="c">2</td><td class="c">1</td><td class="c"><span class="pill p-info">⚠️ วาระ 2</span></td><td>กำลังดำรงวาระที่ 2</td></tr>
+              <tr><td class="c mono">4</td><td class="c"><span class="tc">วาระ 2/2</span></td><td class="c">2</td><td class="c">2</td><td class="c"><span class="pill p-warn">🔴 ครบ 2 วาระ</span></td><td>ครบ 2 วาระ ต้องเว้นวรรคหลังพ้นตำแหน่ง</td></tr>
+              <tr><td class="c mono">&gt;4</td><td class="c"><span class="tc" style="background:var(--RL);color:var(--R)">เกิน</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="pill p-over">⛔ ผิดระเบียบ</span></td><td>เกิน 4 ปีติดต่อกัน ต้องหยุดดำรงตำแหน่งทันที</td></tr>
+            </tbody>
+          </table></div></div>
+        </div>
+      </div>
+
+      <!-- ── IMPORT/EXPORT ── -->
+      <div class="page" id="page-import">
+        <div class="pg-hd">
+          <div class="pg-hd-l">
+            <div class="breadcrumb">🏠 หน้าหลัก › <b>Import / Export</b></div>
+            <h1>นำเข้า / ส่งออกข้อมูล</h1>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+          <div>
+            <div class="panel">
+              <div class="panel-hd"><div class="panel-title">📥 Import CSV</div></div>
+              <div class="panel-body">
+                <div style="margin-bottom:12px">
+                  <label class="form-label">ประเภทข้อมูล</label>
+                  <select class="form-sel" id="importType" style="margin-top:4px">
+                    <option value="boards">กรรมการ</option>
+                    <option value="coops">สหกรณ์</option>
+                  </select>
+                </div>
+                <div class="iz" id="importZone"
+                     onclick="document.getElementById('importFile').click()"
+                     ondragover="dzOver(event)" ondragleave="dzLeave(event)" ondrop="dzDrop(event,'main')">
+                  <div class="iz-icon">📂</div>
+                  <div class="iz-text">คลิกหรือลากไฟล์ CSV</div>
+                  <div class="iz-sub">.CSV เท่านั้น — วันที่ YYYY-MM-DD</div>
+                </div>
+                <input type="file" id="importFile" accept=".csv" style="display:none" onchange="handleImport(event,'main')">
+                <div id="importPreview"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="panel" style="margin-bottom:14px">
+              <div class="panel-hd"><div class="panel-title">📤 Export</div></div>
+              <div class="panel-body">
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <div style="padding:14px;background:var(--BG2);border-radius:var(--R1)">
+                    <div style="font-weight:700;font-size:.85rem;margin-bottom:8px">👥 กรรมการ</div>
+                    <div class="btn-grp">
+                      <button class="btn btn-o btn-sm" onclick="exportBoardCSV()">⬇️ CSV</button>
+                    </div>
+                  </div>
+                  <div style="padding:14px;background:var(--BG2);border-radius:var(--R1)">
+                    <div style="font-weight:700;font-size:.85rem;margin-bottom:8px">🏢 สหกรณ์</div>
+                    <div class="btn-grp">
+                      <button class="btn btn-o btn-sm" onclick="exportCoopCSV()">⬇️ CSV</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-hd"><div class="panel-title">📝 Template</div></div>
+              <div class="panel-body">
+                <p style="font-size:.82rem;color:var(--T3);margin-bottom:10px">ดาวน์โหลดแม่แบบสำหรับกรอกข้อมูล</p>
+                <div class="btn-grp">
+                  <button class="btn btn-gd btn-sm" onclick="dlTemplate('boards')">⬇️ Template กรรมการ</button>
+                  <button class="btn btn-gd btn-sm" onclick="dlTemplate('coops')">⬇️ Template สหกรณ์</button>
+                </div>
+                <div style="margin-top:10px;padding:10px;background:var(--PL);border-radius:7px;font-size:.75rem;color:var(--P)">
+                  ⚠️ วันที่ใช้รูปแบบ <b>YYYY-MM-DD</b> เช่น 2023-04-01
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SETTINGS / GOOGLE SHEETS SYNC ── -->
+      <div class="page" id="page-settings">
+        <div class="pg-hd">
+          <div class="pg-hd-l">
+            <div class="breadcrumb">🏠 หน้าหลัก › <b>ตั้งค่า</b></div>
+            <h1>ตั้งค่าระบบ & การซิงค์ Google Sheets</h1>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+          <!-- Sheets Config -->
+          <div class="panel">
+            <div class="panel-hd"><div class="panel-title">🔗 เชื่อมต่อ Google Sheets</div></div>
+            <div class="panel-body">
+              <div id="syncStatus2" style="margin-bottom:12px"></div>
+              <div style="margin-bottom:12px">
+                <label class="form-label">Google Apps Script Web App URL</label>
+                <div class="gs-url-row" style="margin-top:4px">
+                  <input class="gs-url-input" type="url" id="sheetsUrl" placeholder="https://script.google.com/macros/s/xxx/exec">
+                  <button class="btn btn-p btn-sm" onclick="saveSheetUrl()">บันทึก</button>
+                </div>
+                <div class="form-hint">วาง URL จาก Apps Script → Deploy → Web App</div>
+              </div>
+              <div style="margin-bottom:12px">
+                <label class="form-label">Token (ต้องตรงกับ token ใน Code.gs)</label>
+                <input class="form-input" type="password" id="sheetsToken" placeholder="ตั้งค่า token ให้ตรงกับ Apps Script" style="margin-top:4px">
+              </div>
+              <div class="btn-grp">
+                <button class="btn btn-p btn-sm" onclick="saveSheetUrl()">💾 บันทึกการตั้งค่า</button>
+                <button class="btn btn-o btn-sm" onclick="testSync()">🔍 ทดสอบการเชื่อมต่อ</button>
+                <button class="btn btn-g btn-sm" onclick="syncNow()">🔄 ซิงค์ตอนนี้</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Google OAuth Config -->
+          <div class="panel">
+            <div class="panel-hd"><div class="panel-title">🔐 Google OAuth Client ID</div></div>
+            <div class="panel-body">
+              <div style="margin-bottom:12px">
+                <label class="form-label">Client ID (จาก Google Cloud Console)</label>
+                <input class="form-input" id="oauthClientId" placeholder="xxx.apps.googleusercontent.com" style="margin-top:4px">
+                <div class="form-hint">ใส่ Client ID แล้ว reload หน้าเพื่อใช้ Google Login จริง</div>
+              </div>
+              <button class="btn btn-p btn-sm" onclick="saveOAuthConfig()">💾 บันทึก & Reload</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Setup Guide -->
+        <div class="panel">
+          <div class="panel-hd"><div class="panel-title">📋 คู่มือตั้งค่าทีละขั้น</div></div>
+          <div class="panel-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+              <!-- Google OAuth Steps -->
+              <div>
+                <div style="font-weight:700;font-size:.9rem;margin-bottom:10px;color:var(--P)">🔐 ขั้นตอน Google OAuth Login</div>
+                <div class="steps">
+                  <div class="step"><div class="step-num">1</div><div class="step-body">
+                    <h4>สร้าง Google Cloud Project</h4>
+                    <p>ไปที่ <a href="https://console.cloud.google.com" target="_blank" style="color:var(--P)">console.cloud.google.com</a> → New Project</p>
+                  </div></div>
+                  <div class="step"><div class="step-num">2</div><div class="step-body">
+                    <h4>เปิด Google Identity API</h4>
+                    <p>APIs &amp; Services → Library → "Google Identity" → Enable</p>
+                  </div></div>
+                  <div class="step"><div class="step-num">3</div><div class="step-body">
+                    <h4>สร้าง OAuth Client ID</h4>
+                    <p>Credentials → Create → OAuth 2.0 Client ID → Web application<br>
+                    ใส่ Authorized Origins: URL ของ Netlify site</p>
+                  </div></div>
+                  <div class="step"><div class="step-num">4</div><div class="step-body">
+                    <h4>ใส่ Client ID ในระบบ</h4>
+                    <p>นำ Client ID มาใส่ในช่องด้านบน → บันทึก → Reload</p>
+                  </div></div>
+                </div>
+              </div>
+
+              <!-- Google Sheets Steps -->
+              <div>
+                <div style="font-weight:700;font-size:.9rem;margin-bottom:10px;color:var(--G)">📊 ขั้นตอน Google Sheets Real-time</div>
+                <div class="steps">
+                  <div class="step"><div class="step-num">1</div><div class="step-body">
+                    <h4>สร้าง Google Sheet</h4>
+                    <p>สร้าง Sheet ชื่อ: <b>สหกรณ์</b>, <b>กรรมการ</b>, <b>ผู้ใช้</b></p>
+                  </div></div>
+                  <div class="step"><div class="step-num">2</div><div class="step-body">
+                    <h4>วาง Apps Script Code</h4>
+                    <p>Extensions → Apps Script → วางโค้ด <span id="scriptCodeBtn" onclick="showScriptCode()" style="color:var(--P);cursor:pointer;font-weight:700">[คลิกดูโค้ด]</span></p>
+                  </div></div>
+                  <div class="step"><div class="step-num">3</div><div class="step-body">
+                    <h4>Deploy Web App</h4>
+                    <p>Deploy → New deployment → Type: Web App<br>
+                    Execute as: Me | Who has access: Anyone</p>
+                  </div></div>
+                  <div class="step"><div class="step-num">4</div><div class="step-body">
+                    <h4>ใส่ URL ในระบบ</h4>
+                    <p>คัดลอก Web App URL ใส่ในช่อง "Google Apps Script URL" ด้านบน</p>
+                  </div></div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:18px">
+              <div style="font-weight:700;font-size:.9rem;margin-bottom:10px;color:var(--GD)">🚀 Deploy บน Netlify</div>
+              <div style="background:#0d1117;border-radius:var(--R1);padding:14px;font-family:var(--FM);font-size:.78rem;color:#58a6ff;line-height:1.8">
+                <span style="color:#8b949e"># วิธีที่ 1: Drag & Drop</span><br>
+                เปิด app.netlify.com → ลากโฟลเดอร์ coop-v3 มาวาง<br><br>
+                <span style="color:#8b949e"># วิธีที่ 2: GitHub + Auto Deploy</span><br>
+                <span style="color:#ff7b72">git</span> init && git add . && git commit -m "init"<br>
+                <span style="color:#ff7b72">git</span> remote add origin https://github.com/YOUR/REPO.git<br>
+                <span style="color:#ff7b72">git</span> push -u origin main<br>
+                <span style="color:#8b949e"># จากนั้น Netlify → New site → Import from Git</span><br><br>
+                <span style="color:#8b949e"># วิธีที่ 3: Netlify CLI</span><br>
+                <span style="color:#ff7b72">npx</span> netlify-cli deploy --prod --dir=.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── USERS ── -->
+      <div class="page" id="page-users">
+        <div class="pg-hd">
+          <div class="pg-hd-l">
+            <div class="breadcrumb">🏠 หน้าหลัก › <b>จัดการผู้ใช้</b></div>
+            <h1>จัดการผู้ใช้งานและสิทธิ์</h1>
+          </div>
+          <button class="btn btn-p btn-sm" onclick="openUserModal()">➕ เพิ่มผู้ใช้</button>
+        </div>
+        <div class="fbar">
+          <div class="fg fw"><label>🔍 ค้นหา</label><input id="fuS" placeholder="ชื่อ / อีเมล..." oninput="renderUsers()"></div>
+          <div class="fg"><label>👤 บทบาท</label><select id="fuR" onchange="renderUsers()">
+            <option value="">ทั้งหมด</option>
+            <option value="admin">Admin</option><option value="province">เจ้าหน้าที่จังหวัด</option>
+            <option value="coop">สหกรณ์</option>
+          </select></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hd"><div class="panel-title">👥 รายชื่อผู้ใช้งาน</div></div>
+          <div class="panel-body np"><div class="tw">
+            <table><thead><tr>
+              <th>#</th><th>ชื่อ-นามสกุล</th><th>อีเมล (Gmail)</th>
+              <th class="c">บทบาท</th><th>ขอบเขต</th>
+              <th class="c">สถานะ</th><th class="c">จัดการ</th>
+            </tr></thead><tbody id="userBody"></tbody></table>
+          </div></div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /body-wrap -->
+</div><!-- /shell -->
+
+<!-- ══════════════ MODALS ══════════════ -->
+<!-- Board Modal -->
+<div class="overlay" id="boardModal">
+  <div class="modal">
+    <div class="mhd">
+      <div class="m-title" id="boardModalTitle">เพิ่มกรรมการ</div>
+      <button class="m-close" onclick="closeM('boardModal')">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="form-grid">
+        <div style="grid-column:1/-1"><label class="form-label">ชื่อ-นามสกุล <span class="req">*</span></label><input class="form-input" id="bm_name" placeholder="ชื่อ-นามสกุลกรรมการ"></div>
+        <div style="grid-column:1/-1"><label class="form-label">สหกรณ์ <span class="req">*</span></label><select class="form-sel" id="bm_coop"><option value="">-- เลือก --</option></select></div>
+        <div><label class="form-label">วันที่เริ่มวาระปัจจุบัน <span class="req">*</span></label><input class="form-input" type="date" id="bm_start"></div>
+        <div><label class="form-label">วันที่สิ้นสุดวาระ</label><input class="form-input" type="date" id="bm_end" onchange="toggleSubFields()"></div>
+        <div>
+          <label class="form-label">ปีดำรงตำแหน่งก่อนหน้า (สะสม)</label>
+          <input class="form-input" type="number" id="bm_prevY" value="0" min="0" max="20" onchange="toggleSubFields()">
+          <div class="form-hint">★ จำนวนปีรวมทุกวาระที่ผ่านมาก่อนวาระปัจจุบัน (ถ้าไม่มีให้ใส่ 0)</div>
+        </div>
+        <div><label class="form-label">จำนวนวาระก่อนหน้า</label><input class="form-input" type="number" id="bm_prevT" value="0" min="0"></div>
+        <div><label class="form-label">ประเภทกรรมการ</label>
+          <select class="form-sel" id="bm_subtype" onchange="toggleSubFields()">
+            <option value="">ปกติ</option>
+            <option value="แทนตำแหน่ง">แทนตำแหน่ง</option>
+          </select>
+        </div>
+        <div id="grp_origTerm" style="display:none">
+          <label class="form-label">วาระของกรรมการที่ออก</label>
+          <select class="form-sel" id="bm_origTermLabel">
+            <option value="">-- เลือก --</option>
+            <option value="1/1">1/1</option><option value="1/2">1/2</option>
+            <option value="2/1">2/1</option><option value="2/2">2/2</option>
+          </select>
+        </div>
+        <div id="grp_dateInFirst" style="display:none">
+          <label class="form-label">วันที่เริ่มนับรวม (ถ้าเคยดำรงก่อน)</label>
+          <input class="form-input" type="date" id="bm_dateInFirst">
+        </div>
+        <div id="grp_returnSelf" style="display:none">
+          <label class="form-label" style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="bm_returnSelf" style="width:16px;height:16px">
+            กลับมาแทนตำแหน่งตนเอง (วาระต่อเนื่อง)
+          </label>
+        </div>
+        <div id="grp_eligibleDate" style="display:none">
+          <label class="form-label">วันที่สมัครได้หลังเว้นวรรค</label>
+          <input class="form-input" type="date" id="bm_eligibleDate">
+          <div class="form-hint">กรอกเฉพาะกรณีพ้นในวาระที่ 2 ต้องเว้นวรรค</div>
+        </div>
+        <div><label class="form-label">ตำแหน่ง</label>
+          <select class="form-sel" id="bm_pos">
+            <option value="">-- ตำแหน่ง --</option>
+            <option>ประธานกรรมการ</option><option>รองประธาน</option>
+            <option>เลขานุการ</option><option>เหรัญญิก</option><option>กรรมการ</option>
+          </select>
+        </div>
+        <div><label class="form-label">ประเภท</label>
+          <select class="form-sel" id="bm_type">
+            <option value="ปกติ">ปกติ</option>
+            <option value="แทนตำแหน่ง">แทนตำแหน่ง</option>
+          </select>
+        </div>
+        <div style="grid-column:1/-1"><label class="form-label">หมายเหตุ</label><textarea class="form-ta" id="bm_note"></textarea></div>
+      </div>
+    </div>
+    <div class="mft">
+      <button class="btn btn-o" onclick="closeM('boardModal')">ยกเลิก</button>
+      <button class="btn btn-p" onclick="saveBoard()">💾 บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<!-- Coop Modal -->
+<div class="overlay" id="coopModal">
+  <div class="modal">
+    <div class="mhd">
+      <div class="m-title" id="coopModalTitle">เพิ่มสหกรณ์</div>
+      <button class="m-close" onclick="closeM('coopModal')">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="form-grid">
+        <div style="grid-column:1/-1"><label class="form-label">ชื่อสหกรณ์ <span class="req">*</span></label><input class="form-input" id="cm_name"></div>
+        <div><label class="form-label">ประเภท <span class="req">*</span></label>
+          <select class="form-sel" id="cm_type">
+            <option value="">-- เลือก --</option>
+            <option>สหกรณ์การเกษตร</option><option>สหกรณ์ออมทรัพย์</option>
+            <option>สหกรณ์เครดิตยูเนี่ยน</option><option>สหกรณ์บริการ</option>
+            <option>สหกรณ์ร้านค้า</option><option>สหกรณ์นิคม</option><option>สหกรณ์ประมง</option>
+          </select>
+        </div>
+        <div><label class="form-label">จังหวัด <span class="req">*</span></label><input class="form-input" id="cm_prov"></div>
+        <div><label class="form-label">อำเภอ</label><input class="form-input" id="cm_dist"></div>
+        <div><label class="form-label">กลุ่มจังหวัด / กลุ่มผู้ดูแล</label><input class="form-input" id="cm_grp" placeholder="เช่น กลุ่ม 1"></div>
+        <div><label class="form-label">เบอร์โทร</label><input class="form-input" id="cm_tel"></div>
+        <div style="grid-column:1/-1">
+          <label class="form-label">Gmail สหกรณ์ (สำหรับ Login) <span class="req">*</span></label>
+          <input class="form-input" type="email" id="cm_email" placeholder="coop@gmail.com">
+          <div class="form-hint">★ Gmail นี้จะใช้ Login เข้าระบบในฐานะสหกรณ์ และแก้ไขข้อมูลตนเองได้</div>
+        </div>
+        <div><label class="form-label">วันจดทะเบียน</label><input class="form-input" type="date" id="cm_reg"></div>
+        <div style="grid-column:1/-1"><label class="form-label">หมายเหตุ</label><textarea class="form-ta" id="cm_note"></textarea></div>
+      </div>
+    </div>
+    <div class="mft">
+      <button class="btn btn-o" onclick="closeM('coopModal')">ยกเลิก</button>
+      <button class="btn btn-p" onclick="saveCoop()">💾 บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<!-- User Modal -->
+<div class="overlay" id="userModal">
+  <div class="modal">
+    <div class="mhd"><div class="m-title">เพิ่ม/แก้ไขผู้ใช้</div><button class="m-close" onclick="closeM('userModal')">✕</button></div>
+    <div class="mbody">
+      <div class="form-grid">
+        <div><label class="form-label">ชื่อ-นามสกุล</label><input class="form-input" id="um_name"></div>
+        <div><label class="form-label">Gmail <span class="req">*</span></label><input class="form-input" type="email" id="um_email"></div>
+        <div><label class="form-label">บทบาท</label>
+          <select class="form-sel" id="um_role" onchange="toggleScope()">
+            <option value="admin">👑 Admin</option>
+            <option value="province">🏛️ เจ้าหน้าที่จังหวัด</option>
+            <option value="coop">🌾 สหกรณ์</option>
+          </select>
+        </div>
+        <div><label class="form-label" id="scopeLbl">ขอบเขต</label>
+          <input class="form-input" id="um_scope" placeholder="สหกรณ์ / กลุ่ม">
+        </div>
+        <div style="grid-column:1/-1"><label class="form-label">สถานะ</label>
+          <select class="form-sel" id="um_status">
+            <option value="active">✅ เปิดใช้งาน</option>
+            <option value="inactive">🔴 ปิดใช้งาน</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="mft">
+      <button class="btn btn-o" onclick="closeM('userModal')">ยกเลิก</button>
+      <button class="btn btn-p" onclick="saveUser()">💾 บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm -->
+<div class="overlay" id="confirmModal">
+  <div class="modal modal-sm">
+    <div class="mhd"><div class="m-title" style="color:var(--R)">⚠️ ยืนยันการลบ</div><button class="m-close" onclick="closeM('confirmModal')">✕</button></div>
+    <div class="mbody"><p id="confirmMsg" style="font-size:.9rem;color:var(--T2)"></p></div>
+    <div class="mft">
+      <button class="btn btn-o" onclick="closeM('confirmModal')">ยกเลิก</button>
+      <button class="btn btn-r" id="confirmOkBtn">🗑️ ยืนยันลบ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Script Code Modal -->
+<div class="overlay" id="scriptModal">
+  <div class="modal" style="width:700px">
+    <div class="mhd"><div class="m-title">📋 Apps Script Code</div><button class="m-close" onclick="closeM('scriptModal')">✕</button></div>
+    <div class="mbody">
+      <p style="font-size:.82rem;color:var(--T3);margin-bottom:10px">วาง code นี้ใน Google Apps Script แล้ว Deploy เป็น Web App</p>
+      <div class="code-block" id="scriptCodeContent" style="max-height:400px;overflow-y:auto;white-space:pre;font-size:.72rem"></div>
+      <button class="btn btn-p btn-sm" onclick="copyScriptCode()" style="margin-top:10px">📋 คัดลอก Code</button>
+    </div>
+    <div class="mft"><button class="btn btn-o" onclick="closeM('scriptModal')">ปิด</button></div>
+  </div>
+</div>
+
+<div id="toastWrap"></div>
+
+<!-- Google Identity Services (GSI) -->
+<script src="https://accounts.google.com/gsi/client" async defer
+  onload="(window.onGSILoad||function(){})()"
+  onerror="document.getElementById('googleSignInBtn').style.display='none';var f=document.getElementById('btnGoogleFallback');if(f)f.style.display='flex';"
+></script>
+
+<script>
+// GSI callbacks — must be global (outside 'use strict')
+window.onGSILoad = function() {
+  var clientId = (window.CFG && CFG.clientId) ? CFG.clientId : '';
+  if (clientId && clientId !== 'YOUR_GOOGLE_CLIENT_ID_HERE') {
+    var btn = document.getElementById('btnGoogleFallback');
+    if (btn) btn.style.display = 'none';
+  } else {
+    var gsi = document.getElementById('googleSignInBtn');
+    var fb  = document.getElementById('btnGoogleFallback');
+    if (gsi) gsi.style.display = 'none';
+    if (fb)  fb.style.display  = 'flex';
+  }
+};
+window.onGSIError = function() {
+  var gsi = document.getElementById('googleSignInBtn');
+  var fb  = document.getElementById('btnGoogleFallback');
+  if (gsi) gsi.style.display = 'none';
+  if (fb)  fb.style.display  = 'flex';
+};
+</script>
+
+<script>
+'use strict';
+// ════════════════════════════════════════════════════
+// CONFIG & CONSTANTS
+// ════════════════════════════════════════════════════
+const CFG = {
+  get clientId(){ return localStorage.getItem('oauth_client_id') || '' },
+  get sheetsUrl(){ return localStorage.getItem('sheets_url') || '' },
+  get sheetsToken(){ return localStorage.getItem('sheets_token') || '' },
+};
+
+const DEMO = {
+  admin:    { id:'demo-admin', name:'ผู้ดูแลระบบ', email:'admin@cpd.go.th', role:'admin', scope:'', picture:'' },
+  province: { id:'demo-prov', name:'นางสาวสมหญิง จันทร์ดี', email:'province@cpd.go.th', role:'province', scope:'กลุ่ม 1', picture:'' },
+  coop:     { id:'demo-coop', name:'สหกรณ์การเกษตรนครราชสีมา', email:'kaset.nma@gmail.com', role:'coop', scope:'สหกรณ์การเกษตรนครราชสีมา จำกัด', picture:'' },
+};
+
+const NAV_DEF = [
+  { id:'dashboard', icon:'📊', label:'แดชบอร์ด',     roles:['admin','province'] },
+  { id:'portal',    icon:'🌾', label:'ข้อมูลสหกรณ์', roles:['coop'] },
+  { id:'boards',    icon:'👥', label:'กรรมการ',       roles:['admin','province'] },
+  { id:'coops',     icon:'🏢', label:'สหกรณ์',       roles:['admin','province'] },
+  { id:'verify',    icon:'🔍', label:'ตรวจสอบวาระ',  roles:['admin','province','coop'] },
+  { id:'import',    icon:'📁', label:'Import/Export', roles:['admin','province','coop'] },
+  { id:'users',     icon:'⚙️', label:'จัดการผู้ใช้', roles:['admin'] },
+  { id:'settings',  icon:'🔧', label:'ตั้งค่า',       roles:['admin'] },
+];
+
+// ════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════
+let CU = null; // current user
+let DB = { coops:[], boards:[], users:[] };
+let filteredBoards = [];
+let filteredCoops  = [];
+let editBoardIdx   = null;
+let editCoopIdx    = null;
+let editUserIdx    = null;
+let pendingImport  = null;
+let pendingImportTarget = '';
+let syncTimer      = null;
+
+// ════════════════════════════════════════════════════
+// CORE LOGIC — FIXED year calculation
+// ════════════════════════════════════════════════════
+function ageYears(dateStr) {
+  if (!dateStr) return 0;
+  const s = new Date(dateStr);
+  if (isNaN(s)) return 0;
+  const n = new Date();
+  const ms = n - s;
+  return ms < 0 ? 0 : ms / (1000*60*60*24*365.25);
+}
+
+// แสดงปีให้อ่านง่าย (1 ทศนิยม) ใช้เฉพาะแสดงผล ไม่ใช้คำนวณ
+function fmtYrs(y) {
+  return (Math.round(y * 10) / 10).toFixed(1);
+}
+
+// คำนวณปีสะสม รองรับ dateInFirst และ returnSelf
+function calcAccYears(b) {
+  // ถ้ากลับมาแทนตนเอง หรือมี dateInFirst → นับจากวันแรก
+  const start = (b.returnSelf === 'TRUE' || b.dateInFirst)
+    ? (b.dateInFirst || b.start) : b.start;
+  const end = b.end ? new Date(b.end) : new Date();
+  const s = new Date(start);
+  if (isNaN(s) || isNaN(end)) return 0;
+  const ms = end - s;
+  return ms < 0 ? 0 : ms / (1000*60*60*24*365.25);
+}
+
+function termCode(totalY) {
+  if (totalY < 1) return 'วาระ 1/1';
+  if (totalY < 2) return 'วาระ 1/2';
+  if (totalY < 3) return 'วาระ 2/1';
+  if (totalY < 4) return 'วาระ 2/2';
+  return 'เกิน 2 วาระ ⛔';
+}
+
+// คำนวณวาระผู้แทน จาก origTermLabel + dateInFirst
+function termCodeSub(b) {
+  if (!b.origTermLabel) return 'ผู้แทน';
+  const isYear1 = (b.origTermLabel === '1/1' || b.origTermLabel === '2/1');
+  const isVara1 = !b.dateInFirst; // ไม่มีประวัติก่อน = วาระ 1
+  if (b.returnSelf === 'TRUE') {
+    // กลับมาแทนตนเอง → วาระต่อเนื่องจากปีสะสม
+    const yrs = calcAccYears(b);
+    return termCode(yrs);
+  }
+  if (isVara1) return isYear1 ? 'วาระ 1/1' : 'วาระ 1/2';
+  return isYear1 ? 'วาระ 2/1' : 'วาระ 2/2';
+}
+
+function status(totalY) {
+  if (totalY >= 4) return { code:'OVER', label:'⛔ เกินกำหนด', short:'เกินกำหนด', cls:'p-over', icon:'⛔' };
+  if (totalY >= 3) return { code:'WARN', label:'⚠️ ใกล้ครบวาระ', short:'ใกล้ครบ', cls:'p-warn', icon:'⚠️' };
+  if (totalY >= 2) return { code:'INFO', label:'⚠️ เข้าวาระที่ 2', short:'วาระที่ 2', cls:'p-info', icon:'⚠️' };
+  return { code:'OK', label:'✅ ปกติ', short:'ปกติ', cls:'p-ok', icon:'✅' };
+}
+
+// ตรวจสอบสิทธิ์สมัครกลับ
+function eligibleStatus(b) {
+  if (!b.end) return { lbl:'ดำรงตำแหน่งอยู่', cls:'p-ok' };
+  const yrs = calcAccYears(b);
+  if (yrs <= 2) return { lbl:'✓ สมัครได้ทันที (พ้นวาระที่ 1)', cls:'p-ok' };
+  if (!b.eligibleDate) return { lbl:'⛔ ต้องเว้นวรรค (กรอก eligibleDate)', cls:'p-over' };
+  const today = new Date(), elig = new Date(b.eligibleDate);
+  if (today >= elig) return { lbl:'✓ เว้นวรรคครบแล้ว สมัครได้', cls:'p-ok' };
+  const mLeft = Math.ceil((elig-today)/(1000*60*60*24*30));
+  return { lbl:`⛔ ยังเว้นวรรคอยู่ (อีก ${mLeft} เดือน)`, cls:'p-over' };
+}
+
+function enrich(b) {
+  const currY  = ageYears(b.start);
+  // ปีสะสม: ถ้ามี dateInFirst หรือ returnSelf ใช้ calcAccYears
+  const accY   = calcAccYears(b);
+  const totalY = (b.dateInFirst || b.returnSelf === 'TRUE') ? accY
+               : currY + (parseFloat(b.prevY) || 0);
+
+  // วาระ: ถ้าเป็นผู้แทน (type = แทนตำแหน่ง) และมี origTermLabel
+  let tc;
+  if ((b.type === 'แทนตำแหน่ง' || b.type === 'sub') && b.origTermLabel) {
+    tc = termCodeSub(b);
+  } else if (b.returnSelf === 'TRUE') {
+    tc = termCode(totalY);
+  } else {
+    tc = termCode(totalY);
+  }
+
+  // term label สำหรับกรณีพ้นตำแหน่ง
+  let termLabel = tc;
+  if (b.end) {
+    termLabel = totalY <= 2 ? 'พ้นจากตำแหน่ง (วาระที่ 1)' : 'พ้นจากตำแหน่ง (วาระที่ 2)';
+  }
+
+  return { ...b, currY, totalY, tc, termLabel, st: status(totalY), elig: eligibleStatus(b) };
+}
+
+function advice(code) {
+  return {
+    OK:   'ดำรงตำแหน่งได้ตามปกติ ไม่มีปัญหาใดๆ',
+    INFO: 'เข้าวาระที่ 2 แล้ว สามารถดำรงต่อได้อีก 2 ปี',
+    WARN: 'ใกล้ครบ 4 ปี เมื่อครบต้องเว้นวรรค 1 ชุดการเลือกตั้งก่อนกลับมา',
+    OVER: 'ปีสะสมเกิน 4 ปีติดต่อกัน ขัดกับระเบียบ ต้องหยุดดำรงตำแหน่งทันที',
+  }[code] || '';
+}
+
+// ════════════════════════════════════════════════════
+// DB
+// ════════════════════════════════════════════════════
+function saveDB() { localStorage.setItem('coop_v3', JSON.stringify(DB)); }
+function loadDB() {
+  const raw = localStorage.getItem('coop_v3');
+  if (raw) { try { DB = JSON.parse(raw); } catch(e){} }
+  if (!DB.users?.length) DB.users = defaultUsers();
+  if (!DB.coops?.length || !DB.boards?.length) seedData();
+}
+
+function defaultUsers() {
+  return [
+    { id:'u1', name:'ผู้ดูแลระบบ', email:'admin@cpd.go.th', role:'admin', scope:'', status:'active' },
+    { id:'u2', name:'นางสาวสมหญิง จันทร์ดี', email:'province@cpd.go.th', role:'province', scope:'กลุ่ม 1', status:'active' },
+    { id:'u3', name:'สหกรณ์การเกษตรนครราชสีมา', email:'kaset.nma@gmail.com', role:'coop', scope:'สหกรณ์การเกษตรนครราชสีมา จำกัด', status:'active' },
+  ];
+}
+
+function seedData() {
+  DB.coops = [
+    { id:'c1', name:'สหกรณ์การเกษตรนครราชสีมา จำกัด',     type:'สหกรณ์การเกษตร', province:'นครราชสีมา', district:'เมือง',    group:'กลุ่ม 1', phone:'044-111111', email:'kaset.nma@gmail.com', regdate:'1997-01-01' },
+    { id:'c2', name:'สหกรณ์ออมทรัพย์ครูนครราชสีมา จำกัด', type:'สหกรณ์ออมทรัพย์', province:'นครราชสีมา', district:'เมือง',    group:'กลุ่ม 1', phone:'044-222222', email:'savings.nma@gmail.com', regdate:'1992-03-15' },
+    { id:'c3', name:'สหกรณ์ผู้ผลิตข้าวโพด จำกัด',          type:'สหกรณ์การเกษตร', province:'นครราชสีมา', district:'ปากช่อง', group:'กลุ่ม 2', phone:'044-333333', email:'corn.nma@gmail.com', regdate:'2002-06-20' },
+  ];
+  // ★ FIX: ใช้วันที่ที่สมเหตุสมผล ไม่เกิน 4 ปีจาก "วันนี้" สำหรับกรรมการที่ปกติ
+  const y = new Date().getFullYear();
+  DB.boards = [
+    { id:'b1', name:'นายสมชาย ใจดี',     coop:'สหกรณ์การเกษตรนครราชสีมา จำกัด',     start:`${y-1}-04-01`, end:`${y+1}-03-31`, prevY:0, prevT:0, type:'ปกติ',          position:'ประธานกรรมการ', origTermLabel:'', dateInFirst:'', returnSelf:'', eligibleDate:'' },
+    { id:'b2', name:'นางสาวมาลี สุขใจ',  coop:'สหกรณ์การเกษตรนครราชสีมา จำกัด',     start:`${y-3}-04-01`, end:`${y-1}-03-31`, prevY:2, prevT:1, type:'ปกติ',          position:'รองประธาน',      origTermLabel:'', dateInFirst:'', returnSelf:'', eligibleDate:'' },
+    { id:'b3', name:'นายวิชัย พ้นแล้ว',  coop:'สหกรณ์การเกษตรนครราชสีมา จำกัด',     start:`${y-2}-04-01`, end:`${y  }-03-31`, prevY:2, prevT:1, type:'ปกติ',          position:'กรรมการ',        origTermLabel:'', dateInFirst:'', returnSelf:'', eligibleDate:'' },
+    { id:'b4', name:'นางสมศรี แทนตำแหน่ง',coop:'สหกรณ์การเกษตรนครราชสีมา จำกัด',   start:`${y-1}-06-01`, end:`${y+1}-05-31`, prevY:1, prevT:0, type:'แทนตำแหน่ง',   position:'กรรมการ',        origTermLabel:'2/1', dateInFirst:'', returnSelf:'', eligibleDate:'' },
+    { id:'b5', name:'นายประเสริฐ ดีงาม',  coop:'สหกรณ์ออมทรัพย์ครูนครราชสีมา จำกัด',start:`${y  }-04-01`, end:`${y+2}-03-31`, prevY:0, prevT:0, type:'ปกติ',          position:'ประธานกรรมการ', origTermLabel:'', dateInFirst:'', returnSelf:'', eligibleDate:'' },
+    { id:'b6', name:'นางอนุชา สุขสบาย',   coop:'สหกรณ์ออมทรัพย์ครูนครราชสีมา จำกัด',start:`${y-2}-04-01`, end:`${y  }-03-31`, prevY:2, prevT:1, type:'ปกติ',          position:'เลขานุการ',      origTermLabel:'', dateInFirst:'', returnSelf:'', eligibleDate:'' },
+    { id:'b7', name:'นางสมหญิง จริงใจ',   coop:'สหกรณ์ผู้ผลิตข้าวโพด จำกัด',         start:`${y-1}-01-01`, end:`${y+1}-12-31`, prevY:0, prevT:0, type:'ปกติ',          position:'ประธานกรรมการ', origTermLabel:'', dateInFirst:'', returnSelf:'', eligibleDate:'' },
+  ];
+  saveDB();
+}
+
+// ════════════════════════════════════════════════════
+// ROLE FILTER
+// ════════════════════════════════════════════════════
+function visibleCoops() {
+  if (!CU) return [];
+  if (CU.role === 'admin') return DB.coops;
+  if (CU.role === 'province') {
+    return CU.scope ? DB.coops.filter(c => c.group === CU.scope) : DB.coops;
+  }
+  if (CU.role === 'coop') {
+    return DB.coops.filter(c => c.email === CU.email || c.name === CU.scope);
+  }
+  return [];
+}
+
+function visibleBoards() {
+  const names = new Set(visibleCoops().map(c => c.name));
+  return DB.boards.filter(b => names.has(b.coop));
+}
+
+function canEdit() { return CU && ['admin','province','coop'].includes(CU.role); }
+function isAdmin() { return CU?.role === 'admin'; }
+function isProvince(){ return CU?.role === 'province'; }
+function isCoop()  { return CU?.role === 'coop'; }
+
+// ════════════════════════════════════════════════════
+// GOOGLE IDENTITY SERVICES
+// ════════════════════════════════════════════════════
+// onGSILoad moved to global scope (above)
+// onGSIError moved to global scope (above)
+
+function onGoogleLogin(resp) {
+  try {
+    const payload = JSON.parse(atob(resp.credential.split('.')[1]));
+    const email   = payload.email;
+    const name    = payload.name;
+    const picture = payload.picture;
+    const found   = DB.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if (!found) {
+      toast(`ไม่พบบัญชี ${email} ในระบบ\nกรุณาติดต่อผู้ดูแลระบบ`, 'err');
+      return;
+    }
+    if (found.status === 'inactive') {
+      toast('บัญชีนี้ถูกปิดใช้งาน กรุณาติดต่อผู้ดูแลระบบ', 'err');
+      return;
+    }
+    doLogin({ ...found, name: found.name||name, picture });
+  } catch(e) {
+    toast('เกิดข้อผิดพลาดในการ Login: ' + e.message, 'err');
+  }
+}
+
+function loginGoogleFallback() {
+  const email = prompt('ป้อน Gmail ที่ลงทะเบียนในระบบ:\n\nตัวอย่าง:\nadmin@cpd.go.th\nprovince@cpd.go.th\nkaset.nma@gmail.com', '');
+  if (!email?.trim()) return;
+  const found = DB.users.find(u => u.email.toLowerCase() === email.trim().toLowerCase());
+  if (!found) { toast(`ไม่พบ ${email} ในระบบ`, 'err'); return; }
+  if (found.status === 'inactive') { toast('บัญชีนี้ถูกปิดใช้งาน', 'err'); return; }
+  doLogin(found);
+}
+
+function loginDemo(roleKey) {
+  const demo = DEMO[roleKey];
+  const found = DB.users.find(u => u.email === demo.email);
+  doLogin(found ? { ...found, picture: '' } : demo);
+}
+
+function doLogin(user) {
+  CU = user;
+  document.getElementById('loginWrap').style.display = 'none';
+  document.getElementById('shell').classList.add('on');
+  setupTopbar();
+  setupNav();
+  loadDB();
+  refreshAll();
+  // Start sync if configured
+  if (CFG.sheetsUrl) startAutoSync();
+  // Go to right page
+  goPage(isCoop() ? 'portal' : 'dashboard');
+  toast(`ยินดีต้อนรับ ${user.name || user.email}`, 'ok');
+}
+
+function doLogout() {
+  if (!confirm('ออกจากระบบ?')) return;
+  // Google sign-out
+  if (window.google?.accounts?.id) {
+    google.accounts.id.disableAutoSelect();
+  }
+  CU = null;
+  clearTimeout(syncTimer);
+  document.getElementById('shell').classList.remove('on');
+  document.getElementById('loginWrap').style.display = '';
+  document.getElementById('userMenu').classList.remove('open');
+}
+
+// ════════════════════════════════════════════════════
+// TOPBAR
+// ════════════════════════════════════════════════════
+function setupTopbar() {
+  const ROLE_MAP = {
+    admin:    ['rc-admin', '👑 Admin'],
+    province: ['rc-prov',  '🏛️ เจ้าหน้าที่จังหวัด'],
+    coop:     ['rc-coop',  '🌾 สหกรณ์'],
+  };
+  const [cls, lbl] = ROLE_MAP[CU.role] || ['', '—'];
+  const chip = document.getElementById('roleChip');
+  chip.className = `role-chip ${cls}`;
+  chip.textContent = lbl;
+
+  document.getElementById('tbScope').textContent =
+    CU.scope || (CU.role==='admin' ? 'ทั้งประเทศ' : '—');
+
+  document.getElementById('umName').textContent  = CU.name  || '—';
+  document.getElementById('umEmail').textContent = CU.email || '—';
+
+  const av = document.getElementById('avatarBtn');
+  const img = document.getElementById('avatarImg');
+  const ltr = document.getElementById('avatarLetter');
+  if (CU.picture) {
+    img.src = CU.picture; img.style.display = 'block'; ltr.style.display = 'none';
+  } else {
+    ltr.textContent = (CU.name||CU.email||'?')[0].toUpperCase();
+    img.style.display = 'none'; ltr.style.display = '';
+  }
+}
+
+function toggleUserMenu() {
+  document.getElementById('userMenu').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  if (!document.getElementById('avatarBtn')?.contains(e.target)) {
+    document.getElementById('userMenu')?.classList.remove('open');
+  }
+});
+
+// ════════════════════════════════════════════════════
+// NAV
+// ════════════════════════════════════════════════════
+function setupNav() {
+  const nav = document.getElementById('mainNav');
+  nav.innerHTML = NAV_DEF
+    .filter(n => n.roles.includes(CU.role))
+    .map(n => `<button class="tnav" id="tnav-${n.id}" onclick="goPage('${n.id}')">${n.icon} ${n.label}</button>`)
+    .join('');
+
+  // Board page actions
+  const bpa = document.getElementById('boardPageAct');
+  if (bpa && (isAdmin() || isProvince())) {
+    bpa.innerHTML = `
+      <button class="btn btn-o btn-sm" onclick="goPage('import')">📥 Import</button>
+      <button class="btn btn-p btn-sm" onclick="openBoardModal()">➕ เพิ่มกรรมการ</button>`;
+  }
+  // Coop page actions
+  const cpa = document.getElementById('coopPageAct');
+  if (cpa && (isAdmin() || isProvince())) {
+    cpa.innerHTML = `<button class="btn btn-p btn-sm" onclick="openCoopModal()">➕ เพิ่มสหกรณ์</button>`;
+  }
+}
+
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tnav').forEach(n => n.classList.remove('on'));
+  const pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('on');
+  const nv = document.getElementById('tnav-' + id);
+  if (nv) nv.classList.add('on');
+
+  if (id === 'dashboard') renderDashboard();
+  else if (id === 'portal') renderPortal();
+  else if (id === 'boards') applyBF();
+  else if (id === 'coops') applyCF();
+  else if (id === 'users') renderUsers();
+  else if (id === 'settings') {
+    document.getElementById('sheetsUrl').value   = CFG.sheetsUrl;
+    document.getElementById('sheetsToken').value = CFG.sheetsToken;
+    document.getElementById('oauthClientId').value = CFG.clientId;
+  }
+}
+
+// ════════════════════════════════════════════════════
+// DASHBOARD
+// ════════════════════════════════════════════════════
+function renderDashboard() {
+  const boards = visibleBoards().map(enrich);
+  const coops  = visibleCoops();
+  const ok   = boards.filter(b => b.st.code === 'OK').length;
+  const info = boards.filter(b => b.st.code === 'INFO').length;
+  const warn = boards.filter(b => b.st.code === 'WARN').length;
+  const over = boards.filter(b => b.st.code === 'OVER').length;
+
+  document.getElementById('dashDate').textContent =
+    'ข้อมูล ณ ' + new Date().toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'});
+
+  document.getElementById('dashStats').innerHTML = `
+    <div class="sc s0"><div class="sc-ico">🏢</div><div class="sc-val">${coops.length}</div><div class="sc-label">สหกรณ์</div></div>
+    <div class="sc s1"><div class="sc-ico">👥</div><div class="sc-val">${boards.length}</div><div class="sc-label">กรรมการทั้งหมด</div></div>
+    <div class="sc s2"><div class="sc-ico">✅</div><div class="sc-val">${ok}</div><div class="sc-label">ปกติ (OK)</div></div>
+    <div class="sc s3"><div class="sc-ico">⚠️</div><div class="sc-val">${info}</div><div class="sc-label">ครบวาระ 1</div></div>
+    <div class="sc s4"><div class="sc-ico">⛔</div><div class="sc-val">${warn+over}</div><div class="sc-label">ต้องดำเนินการ</div></div>`;
+
+  // Alert table
+  const probs = boards.filter(b => ['WARN','OVER'].includes(b.st.code));
+  document.getElementById('alertPill').textContent = probs.length + ' รายการ';
+  const ab = document.getElementById('alertBody');
+  ab.innerHTML = probs.length
+    ? probs.map((b,i) => `<tr>
+        <td class="c dim">${i+1}</td>
+        <td class="name">${b.name}</td>
+        <td style="font-size:.8rem;max-width:160px">${b.coop}</td>
+        <td class="c mono" style="font-weight:700;color:var(--R)">${fmtYrs(b.totalY)}</td>
+        <td class="c"><span class="tc">${b.tc}</span></td>
+        <td class="c"><span class="pill ${b.st.cls}">${b.st.label}</span></td>
+      </tr>`).join('')
+    : `<tr><td colspan="6" class="t-empty">✅ ไม่พบรายการที่มีปัญหา</td></tr>`;
+
+  // Update problem nav badge
+  const nv = document.getElementById('tnav-dashboard');
+  if (nv) nv.innerHTML = `📊 แดชบอร์ด${probs.length?` <span class="n-badge">${probs.length}</span>`:''}`;
+
+  // Donut
+  drawDonut(ok, info, warn+over, boards.length);
+
+  // Coop summary
+  const csb = document.getElementById('coopSummary');
+  csb.innerHTML = coops.map((c,i) => {
+    const cb = boards.filter(b => b.coop === c.name);
+    const cok=cb.filter(b=>b.st.code==='OK').length;
+    const ci=cb.filter(b=>b.st.code==='INFO').length;
+    const cw=cb.filter(b=>['WARN','OVER'].includes(b.st.code)).length;
+    return `<tr>
+      <td class="c dim">${i+1}</td>
+      <td class="name">${c.name}</td>
+      <td><span class="pill p-blue" style="font-size:.7rem">${c.type||'—'}</span></td>
+      <td class="c">${cb.length}</td>
+      <td class="c"><span class="pill p-ok">${cok}</span></td>
+      <td class="c"><span class="pill p-info">${ci}</span></td>
+      <td class="c"><span class="pill ${cw?'p-warn':'p-ok'}">${cw}</span></td>
+      <td class="c">${cw?'<span class="pill p-warn">ต้องตรวจสอบ</span>':'<span class="pill p-ok">ปกติ</span>'}</td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="8" class="t-empty">ยังไม่มีข้อมูล</td></tr>`;
+}
+
+function drawDonut(ok, info, warn, total) {
+  const canvas = document.getElementById('donutChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,140,140);
+  document.getElementById('donutVal').textContent = total;
+  if (!total) { document.getElementById('donutLegend').innerHTML = ''; return; }
+  const segs = [
+    { v:ok,   c:'#0A7C4E', l:'ปกติ (OK)' },
+    { v:info, c:'#B45309', l:'ครบวาระ 1' },
+    { v:warn, c:'#B91C1C', l:'ต้องดำเนินการ' },
+  ].filter(s=>s.v>0);
+  const cx=70, cy=70, r=64, ir=44;
+  let a = -Math.PI/2;
+  segs.forEach(s => {
+    const arc = (s.v/total)*2*Math.PI;
+    ctx.beginPath(); ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,a,a+arc);
+    ctx.closePath(); ctx.fillStyle=s.c; ctx.fill();
+    a += arc;
+  });
+  ctx.beginPath(); ctx.arc(cx,cy,ir,0,2*Math.PI);
+  ctx.fillStyle='#fff'; ctx.fill();
+
+  document.getElementById('donutLegend').innerHTML = segs.map(s =>
+    `<div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;align-items:center;gap:7px">
+        <div style="width:9px;height:9px;border-radius:50%;background:${s.c};flex-shrink:0"></div>
+        <span style="font-size:.78rem;color:var(--T2)">${s.l}</span>
+      </div>
+      <strong style="font-size:.8rem;font-family:var(--FM)">${s.v}</strong>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════════════════
+// COOP PORTAL (Self-service)
+// ════════════════════════════════════════════════════
+function renderPortal() {
+  const myCoops = visibleCoops();
+  const myCoop  = myCoops[0];
+  const boards  = visibleBoards().map(enrich);
+  const ok      = boards.filter(b=>b.st.code==='OK').length;
+  const probs   = boards.filter(b=>['WARN','OVER'].includes(b.st.code)).length;
+
+  document.getElementById('portalName').textContent = myCoop?.name || 'สหกรณ์ของฉัน';
+  document.getElementById('portalSub').textContent  = myCoop ? `${myCoop.type} | ${myCoop.province}` : '—';
+  document.getElementById('portalStats').innerHTML = `
+    <div class="ps"><div class="ps-val">${boards.length}</div><div class="ps-lbl">กรรมการทั้งหมด</div></div>
+    <div class="ps"><div class="ps-val" style="color:#6EE7B7">${ok}</div><div class="ps-lbl">ปกติ</div></div>
+    <div class="ps"><div class="ps-val" style="color:#FCA5A5">${probs}</div><div class="ps-lbl">ต้องดำเนินการ</div></div>`;
+
+  const tbody = document.getElementById('portalBody');
+  tbody.innerHTML = boards.map((b,i) => `<tr>
+    <td class="c dim">${i+1}</td>
+    <td class="name">${b.name}</td>
+    <td class="c dim">${b.position||'—'}</td>
+    <td class="c mono">${b.start||'—'}</td>
+    <td class="c mono">${b.end||'—'}</td>
+    <td class="c mono">${fmtYrs(b.currY)}</td>
+    <td class="c mono">${b.prevY||0}</td>
+    <td class="c mono" style="font-weight:700;color:${b.totalY>=4?'var(--R)':b.totalY>=2?'var(--A)':'var(--G)'}">${fmtYrs(b.totalY)}</td>
+    <td class="c"><span class="tc">${b.tc}</span></td>
+    <td class="c"><span class="pill ${b.type==='แทนตำแหน่ง'?'p-info':'p-gray'}" style="font-size:.7rem">${b.type||'ปกติ'}</span></td>
+    <td class="c"><span class="pill ${b.st.cls}">${b.st.label}</span></td>
+    <td class="c">
+      <div style="display:flex;gap:4px;justify-content:center">
+        <button class="btn btn-o btn-icon btn-sm" onclick="openBoardModal(${DB.boards.findIndex(x=>x.id===b.id)})" title="แก้ไข">✏️</button>
+        <button class="btn btn-o btn-icon btn-sm" onclick="confirmDel('board',${DB.boards.findIndex(x=>x.id===b.id)})" title="ลบ">🗑️</button>
+      </div>
+    </td>
+  </tr>`).join('') || `<tr><td colspan="12" class="t-empty"><div class="ei">📋</div>ยังไม่มีข้อมูลกรรมการ</td></tr>`;
+}
+
+// ════════════════════════════════════════════════════
+// BOARD TABLE + FILTERS
+// ════════════════════════════════════════════════════
+function applyBF() {
+  const s   = (document.getElementById('fSearch')?.value||'').toLowerCase();
+  const fc  = document.getElementById('fCoop')?.value||'';
+  const fct = document.getElementById('fCoopType')?.value||'';
+  const fst = document.getElementById('fStatus')?.value||'';
+  const ft  = document.getElementById('fTerm')?.value||'';
+  const ftp = document.getElementById('fType')?.value||'';
+  const fd  = (document.getElementById('fDist')?.value||'').toLowerCase();
+
+  const coopMap = Object.fromEntries(DB.coops.map(c=>[c.name,c]));
+  let data = visibleBoards().map(enrich);
+  if (s)   data = data.filter(b => b.name.toLowerCase().includes(s) || b.coop.toLowerCase().includes(s));
+  if (fc)  data = data.filter(b => b.coop === fc);
+  if (fct) data = data.filter(b => (coopMap[b.coop]||{}).type === fct);
+  if (fst) data = data.filter(b => b.st.code === fst || (fst==='WARN' && b.st.code==='OVER'));
+  if (ft)  data = data.filter(b => b.tc === ft);
+  if (ftp) data = data.filter(b => (b.type||'ปกติ') === ftp);
+  if (fd)  data = data.filter(b => ((coopMap[b.coop]||{}).district||'').toLowerCase().includes(fd));
+
+  filteredBoards = data;
+  const cnt = document.getElementById('bfCount');
+  if (cnt) cnt.textContent = `แสดง ${data.length} / ${visibleBoards().length} รายการ`;
+  renderBoardTable(data);
+}
+
+function clearBF() {
+  ['fSearch','fCoop','fCoopType','fStatus','fTerm','fType','fDist'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  applyBF();
+}
+
+function renderBoardTable(data) {
+  const can = canEdit();
+  const tbody = document.getElementById('boardBody');
+  if (!tbody) return;
+  if (!data?.length) {
+    tbody.innerHTML = `<tr><td colspan="12" class="t-empty"><div class="ei">👥</div>ไม่พบข้อมูลกรรมการ</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map((b,i)=>{
+    const oi = DB.boards.findIndex(x=>x.id===b.id);
+    return `<tr>
+      <td class="c dim">${i+1}</td>
+      <td class="name">${b.name}${b.position?`<br><small style="color:var(--T3);font-size:.72rem">${b.position}</small>`:''}</td>
+      <td style="font-size:.8rem;max-width:160px">${b.coop}</td>
+      <td class="c mono">${b.start||'—'}</td>
+      <td class="c mono">${b.end||'—'}</td>
+      <td class="c mono">${fmtYrs(b.currY)}</td>
+      <td class="c mono">${b.prevY||0}</td>
+      <td class="c mono" style="font-weight:800;color:${b.totalY>4?'var(--R)':b.totalY>=2?'var(--A)':'var(--G)'}">${fmtYrs(b.totalY)}</td>
+      <td class="c"><span class="tc">${b.termLabel||b.tc}</span></td>
+      <td class="c"><span class="pill ${b.type==='แทนตำแหน่ง'||b.type==='sub'?'p-info':'p-gray'}" style="font-size:.7rem">${b.type||'ปกติ'}${b.origTermLabel?` (${b.origTermLabel})`:''}</span></td>
+      <td class="c"><span class="pill ${b.st.cls}">${b.st.label}</span></td>
+      <td class="c">
+        ${can?`<div style="display:flex;gap:4px;justify-content:center">
+          <button class="btn btn-o btn-icon btn-sm" onclick="openBoardModal(${oi})" title="แก้ไข">✏️</button>
+          <button class="btn btn-o btn-icon btn-sm" onclick="confirmDel('board',${oi})" title="ลบ">🗑️</button>
+        </div>`:'—'}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ════════════════════════════════════════════════════
+// COOP TABLE + FILTERS
+// ════════════════════════════════════════════════════
+function applyCF() {
+  const s  = (document.getElementById('fcS')?.value||'').toLowerCase();
+  const ft = document.getElementById('fcT')?.value||'';
+  const fp = (document.getElementById('fcP')?.value||'').toLowerCase();
+  const fg = (document.getElementById('fcG')?.value||'').toLowerCase();
+  let data = visibleCoops();
+  if (s)  data = data.filter(c=>(c.name||'').toLowerCase().includes(s)||(c.province||'').toLowerCase().includes(s)||(c.email||'').toLowerCase().includes(s));
+  if (ft) data = data.filter(c=>c.type===ft);
+  if (fp) data = data.filter(c=>(c.province||'').toLowerCase().includes(fp));
+  if (fg) data = data.filter(c=>(c.group||'').toLowerCase().includes(fg));
+  filteredCoops = data;
+  const cnt = document.getElementById('cfCount');
+  if (cnt) cnt.textContent = `แสดง ${data.length} / ${visibleCoops().length} รายการ`;
+  renderCoopTable(data);
+}
+
+function clearCF() {
+  ['fcS','fcT','fcP','fcG'].forEach(id=>{ const el=document.getElementById(id);if(el)el.value=''; });
+  applyCF();
+}
+
+function renderCoopTable(data) {
+  const can = isAdmin() || isProvince();
+  const tbody = document.getElementById('coopBody');
+  if (!tbody) return;
+  if (!data?.length) {
+    tbody.innerHTML = `<tr><td colspan="10" class="t-empty"><div class="ei">🏢</div>ยังไม่มีข้อมูลสหกรณ์</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map((c,i)=>{
+    const oi = DB.coops.findIndex(x=>x.id===c.id);
+    const cb = DB.boards.filter(b=>b.coop===c.name).map(enrich);
+    const pw = cb.filter(b=>['WARN','OVER'].includes(b.st.code)).length;
+    return `<tr>
+      <td class="dim">${i+1}</td>
+      <td class="name">${c.name}</td>
+      <td><span class="pill p-blue" style="font-size:.7rem">${c.type||'—'}</span></td>
+      <td>${c.province||'—'}</td><td class="dim">${c.district||'—'}</td>
+      <td class="dim">${c.group||'—'}</td>
+      <td class="dim" style="font-size:.78rem">${c.email||'—'}</td>
+      <td class="c">${cb.length}<span class="dim">/15</span></td>
+      <td class="c">${pw?`<span class="pill p-warn">${pw} ราย</span>`:'<span class="pill p-ok">ไม่มี</span>'}</td>
+      <td class="c">
+        ${can?`<div style="display:flex;gap:4px;justify-content:center">
+          <button class="btn btn-o btn-icon btn-sm" onclick="openCoopModal(${oi})">✏️</button>
+          <button class="btn btn-o btn-icon btn-sm" onclick="confirmDel('coop',${oi})">🗑️</button>
+        </div>`:'—'}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ════════════════════════════════════════════════════
+// VERIFY — FIXED
+// ════════════════════════════════════════════════════
+function doVerify() {
+  const start = document.getElementById('vStart').value;
+  const wrap  = document.getElementById('verifyResult');
+  if (!start) { wrap.style.display='none'; return; }
+
+  const name  = document.getElementById('vName').value || 'กรรมการ';
+  const prev  = parseFloat(document.getElementById('vPrev').value)||0;
+  const currY = ageYears(start);
+  const total = currY + prev;
+  const st    = status(total);
+  const tc    = termCode(total);
+  const termN = total<2?'1':total<4?'2':'เกิน 2';
+  const yearIn= total<2?total:total-2;
+
+  const clsMap = { OK:'vr-ok', INFO:'vr-info', WARN:'vr-warn', OVER:'vr-over' };
+  const colMap = { OK:'var(--G)', INFO:'var(--A)', WARN:'var(--R)', OVER:'#F87171' };
+
+  wrap.style.display = 'block';
+  wrap.innerHTML = `
+    <div class="v-result ${clsMap[st.code]}">
+      <div class="vr-item"><div class="vr-lbl">ชื่อกรรมการ</div><div class="vr-val">${name}</div></div>
+      <div class="vr-item"><div class="vr-lbl">วันที่เริ่มวาระ</div><div class="vr-val" style="font-family:var(--FM)">${start}</div></div>
+      <div class="vr-item"><div class="vr-lbl">ปีดำรงตำแหน่งปัจจุบัน</div><div class="vr-val">${currY} ปี</div></div>
+      <div class="vr-item"><div class="vr-lbl">ปีก่อนหน้า (สะสม)</div><div class="vr-val">${prev} ปี</div></div>
+      <div class="vr-item"><div class="vr-lbl">รวมทั้งหมด</div><div class="vr-val" style="font-size:1.3rem;color:${colMap[st.code]}">${total} ปี</div></div>
+      <div class="vr-item"><div class="vr-lbl">รหัสวาระ</div><div class="vr-val"><span class="tc">${tc}</span></div></div>
+      <div class="vr-item"><div class="vr-lbl">วาระที่</div><div class="vr-val">วาระที่ ${termN}</div></div>
+      <div class="vr-item"><div class="vr-lbl">ปีในวาระ</div><div class="vr-val">ปีที่ ${yearIn}</div></div>
+      <div class="verdict">
+        <div class="v-icon">${st.icon}</div>
+        <div class="v-title" style="color:${colMap[st.code]}">${st.label}</div>
+        <div class="v-desc">${advice(st.code)}</div>
+      </div>
+    </div>`;
+}
+
+// ════════════════════════════════════════════════════
+// CRUD — BOARD
+// ════════════════════════════════════════════════════
+function openBoardModal(idx) {
+  editBoardIdx = idx ?? null;
+  const opts = visibleCoops().map(c=>`<option value="${c.name}">${c.name}</option>`).join('');
+  document.getElementById('bm_coop').innerHTML = '<option value="">-- เลือก --</option>' + opts;
+  if (idx != null) {
+    const b = DB.boards[idx];
+    document.getElementById('boardModalTitle').textContent = 'แก้ไขข้อมูลกรรมการ';
+    document.getElementById('bm_name').value = b.name||'';
+    document.getElementById('bm_coop').value = b.coop||'';
+    document.getElementById('bm_start').value= b.start||'';
+    document.getElementById('bm_end').value  = b.end||'';
+    document.getElementById('bm_prevY').value         = b.prevY||0;
+    document.getElementById('bm_prevT').value         = b.prevT||0;
+    document.getElementById('bm_pos').value           = b.position||'';
+    document.getElementById('bm_type').value          = b.type||'ปกติ';
+    document.getElementById('bm_note').value          = b.note||'';
+    document.getElementById('bm_subtype').value       = (b.type==='แทนตำแหน่ง'||b.type==='sub') ? 'แทนตำแหน่ง' : '';
+    document.getElementById('bm_origTermLabel').value = b.origTermLabel||'';
+    document.getElementById('bm_dateInFirst').value   = b.dateInFirst||'';
+    document.getElementById('bm_returnSelf').checked  = b.returnSelf==='TRUE';
+    document.getElementById('bm_eligibleDate').value  = b.eligibleDate||'';
+    toggleSubFields();
+  } else {
+    document.getElementById('boardModalTitle').textContent = 'เพิ่มกรรมการดำเนินการ';
+    ['bm_name','bm_start','bm_end','bm_note','bm_dateInFirst','bm_eligibleDate'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('bm_coop').value         ='';
+    document.getElementById('bm_prevY').value        =0;
+    document.getElementById('bm_prevT').value        =0;
+    document.getElementById('bm_pos').value          ='';
+    document.getElementById('bm_type').value         ='ปกติ';
+    document.getElementById('bm_subtype').value      ='';
+    document.getElementById('bm_origTermLabel').value='';
+    document.getElementById('bm_returnSelf').checked =false;
+    toggleSubFields();
+  }
+  openM('boardModal');
+}
+
+function toggleSubFields() {
+  const isSub = document.getElementById('bm_subtype').value === 'แทนตำแหน่ง';
+  const hasEnd = !!document.getElementById('bm_end').value;
+  const accY = parseFloat(document.getElementById('bm_prevY').value)||0;
+  document.getElementById('grp_origTerm').style.display    = isSub ? '' : 'none';
+  document.getElementById('grp_dateInFirst').style.display = isSub ? '' : 'none';
+  document.getElementById('grp_returnSelf').style.display  = isSub ? '' : 'none';
+  document.getElementById('grp_eligibleDate').style.display =
+    (hasEnd && accY > 2) ? '' : 'none';
+}
+
+function saveBoard() {
+  const name  = document.getElementById('bm_name').value.trim();
+  const coop  = document.getElementById('bm_coop').value;
+  const start = document.getElementById('bm_start').value;
+  if (!name||!coop||!start) return toast('กรุณากรอกข้อมูลที่จำเป็น','warn');
+  const coopBoards = DB.boards.filter(b=>b.coop===coop);
+  if (editBoardIdx==null && coopBoards.length>=15) return toast('กรรมการของสหกรณ์นี้ครบ 15 คนแล้ว','err');
+  const obj = {
+    id: editBoardIdx!=null ? DB.boards[editBoardIdx].id : 'b'+Date.now(),
+    name, coop, start,
+    end:           document.getElementById('bm_end').value,
+    prevY:         parseFloat(document.getElementById('bm_prevY').value)||0,
+    prevT:         parseInt(document.getElementById('bm_prevT').value)||0,
+    position:      document.getElementById('bm_pos').value,
+    type:          document.getElementById('bm_type').value,
+    note:          document.getElementById('bm_note').value,
+    origTermLabel: document.getElementById('bm_origTermLabel').value,
+    dateInFirst:   document.getElementById('bm_dateInFirst').value,
+    returnSelf:    document.getElementById('bm_returnSelf').checked ? 'TRUE' : '',
+    eligibleDate:  document.getElementById('bm_eligibleDate').value,
+  };
+  if (editBoardIdx!=null) DB.boards[editBoardIdx]=obj; else DB.boards.push(obj);
+  saveDB(); pushToSheets('board', obj);
+  closeM('boardModal'); refreshAll();
+  toast(editBoardIdx!=null?'แก้ไขข้อมูลกรรมการเรียบร้อย':'เพิ่มกรรมการเรียบร้อย','ok');
+}
+
+// ════════════════════════════════════════════════════
+// CRUD — COOP
+// ════════════════════════════════════════════════════
+function openCoopModal(idx) {
+  editCoopIdx = idx ?? null;
+  if (idx!=null) {
+    const c = DB.coops[idx];
+    document.getElementById('coopModalTitle').textContent = 'แก้ไขข้อมูลสหกรณ์';
+    document.getElementById('cm_name').value  = c.name||'';
+    document.getElementById('cm_type').value  = c.type||'';
+    document.getElementById('cm_prov').value  = c.province||'';
+    document.getElementById('cm_dist').value  = c.district||'';
+    document.getElementById('cm_grp').value   = c.group||'';
+    document.getElementById('cm_tel').value   = c.phone||'';
+    document.getElementById('cm_email').value = c.email||'';
+    document.getElementById('cm_reg').value   = c.regdate||'';
+    document.getElementById('cm_note').value  = c.note||'';
+  } else {
+    document.getElementById('coopModalTitle').textContent = 'เพิ่มสหกรณ์ใหม่';
+    ['cm_name','cm_prov','cm_dist','cm_grp','cm_tel','cm_email','cm_note'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('cm_type').value='';
+    document.getElementById('cm_reg').value='';
+  }
+  openM('coopModal');
+}
+
+function saveCoop() {
+  const name  = document.getElementById('cm_name').value.trim();
+  const type  = document.getElementById('cm_type').value;
+  const prov  = document.getElementById('cm_prov').value.trim();
+  const email = document.getElementById('cm_email').value.trim();
+  if (!name||!type||!prov) return toast('กรุณากรอกชื่อ ประเภท และจังหวัด','warn');
+  if (editCoopIdx==null && DB.coops.find(c=>c.name===name)) return toast('สหกรณ์นี้มีอยู่แล้ว','err');
+  const obj = {
+    id: editCoopIdx!=null ? DB.coops[editCoopIdx].id : 'c'+Date.now(),
+    name, type, province:prov,
+    district: document.getElementById('cm_dist').value,
+    group:    document.getElementById('cm_grp').value,
+    phone:    document.getElementById('cm_tel').value,
+    email,
+    regdate:  document.getElementById('cm_reg').value,
+    note:     document.getElementById('cm_note').value,
+  };
+  if (editCoopIdx!=null) DB.coops[editCoopIdx]=obj; else DB.coops.push(obj);
+  // Auto-create user for this coop if email provided
+  if (email && !DB.users.find(u=>u.email===email)) {
+    DB.users.push({ id:'u'+Date.now(), name, email, role:'coop', scope:name, status:'active' });
+    toast(`สร้างบัญชีผู้ใช้สำหรับ ${email} อัตโนมัติ`, 'info');
+  }
+  saveDB(); closeM('coopModal'); refreshAll();
+  toast(editCoopIdx!=null?'แก้ไขสหกรณ์เรียบร้อย':'เพิ่มสหกรณ์เรียบร้อย','ok');
+}
+
+// ════════════════════════════════════════════════════
+// CRUD — USER
+// ════════════════════════════════════════════════════
+function openUserModal(idx) {
+  editUserIdx = idx ?? null;
+  if (idx!=null) {
+    const u=DB.users[idx];
+    document.getElementById('um_name').value  = u.name||'';
+    document.getElementById('um_email').value = u.email||'';
+    document.getElementById('um_role').value  = u.role||'coop';
+    document.getElementById('um_scope').value = u.scope||'';
+    document.getElementById('um_status').value= u.status||'active';
+  } else {
+    ['um_name','um_email','um_scope'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('um_role').value  ='coop';
+    document.getElementById('um_status').value='active';
+  }
+  toggleScope();
+  openM('userModal');
+}
+
+function toggleScope() {
+  const role = document.getElementById('um_role').value;
+  const lbl  = document.getElementById('scopeLbl');
+  lbl.textContent = role==='province'?'กลุ่มจังหวัดที่ดูแล':role==='coop'?'ชื่อสหกรณ์':'ขอบเขต (เว้นว่าง = เห็นทั้งหมด)';
+}
+
+function saveUser() {
+  const email = document.getElementById('um_email').value.trim();
+  if (!email) return toast('กรุณากรอกอีเมล','warn');
+  const obj = {
+    id: editUserIdx!=null ? DB.users[editUserIdx].id : 'u'+Date.now(),
+    name:   document.getElementById('um_name').value.trim(),
+    email,
+    role:   document.getElementById('um_role').value,
+    scope:  document.getElementById('um_scope').value.trim(),
+    status: document.getElementById('um_status').value,
+  };
+  if (editUserIdx!=null) DB.users[editUserIdx]=obj; else DB.users.push(obj);
+  saveDB(); closeM('userModal'); renderUsers();
+  toast('บันทึกข้อมูลผู้ใช้เรียบร้อย','ok');
+}
+
+function renderUsers() {
+  const s = (document.getElementById('fuS')?.value||'').toLowerCase();
+  const r = document.getElementById('fuR')?.value||'';
+  let data = DB.users;
+  if (s) data = data.filter(u=>(u.name||'').toLowerCase().includes(s)||(u.email||'').toLowerCase().includes(s));
+  if (r) data = data.filter(u=>u.role===r);
+  const RLBL = { admin:['rc-admin','👑 Admin'], province:['rc-prov','🏛️ เจ้าหน้าที่จังหวัด'], coop:['rc-coop','🌾 สหกรณ์'] };
+  const COLS = ['#1B4F8A','#0A7C4E','#B45309','#7C3AED','#B91C1C'];
+  const tbody = document.getElementById('userBody');
+  if (!tbody) return;
+  tbody.innerHTML = data.map((u,i)=>{
+    const oi = DB.users.findIndex(x=>x.id===u.id);
+    const [rcls,rlbl] = RLBL[u.role]||['','—'];
+    const col = COLS[i%COLS.length];
+    return `<tr>
+      <td class="dim">${i+1}</td>
+      <td><div style="display:flex;align-items:center;gap:9px">
+        <div style="width:28px;height:28px;border-radius:50%;background:${col};color:#fff;font-weight:800;font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">${(u.name||u.email||'?')[0].toUpperCase()}</div>
+        <div class="bold">${u.name||'—'}</div>
+      </div></td>
+      <td class="dim">${u.email}</td>
+      <td class="c"><span class="role-chip ${rcls}" style="font-size:.7rem">${rlbl}</span></td>
+      <td class="dim">${u.scope||'ทั้งหมด'}</td>
+      <td class="c">${u.status==='active'?'<span class="pill p-ok">เปิด</span>':'<span class="pill p-warn">ปิด</span>'}</td>
+      <td class="c"><div style="display:flex;gap:4px;justify-content:center">
+        <button class="btn btn-o btn-icon btn-sm" onclick="openUserModal(${oi})">✏️</button>
+        <button class="btn btn-o btn-icon btn-sm" onclick="confirmDel('user',${oi})">🗑️</button>
+      </div></td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="7" class="t-empty">ไม่พบผู้ใช้งาน</td></tr>`;
+}
+
+// ════════════════════════════════════════════════════
+// DELETE
+// ════════════════════════════════════════════════════
+function confirmDel(type, idx) {
+  const names = { board:`กรรมการ "${DB.boards[idx]?.name}"`, coop:`สหกรณ์ "${DB.coops[idx]?.name}"`, user:`ผู้ใช้ "${DB.users[idx]?.email}"` };
+  document.getElementById('confirmMsg').textContent = `ยืนยันการลบ ${names[type]}?`;
+  document.getElementById('confirmOkBtn').onclick = () => doDel(type, idx);
+  openM('confirmModal');
+}
+
+function doDel(type, idx) {
+  if (type==='board') DB.boards.splice(idx,1);
+  else if (type==='coop') { const n=DB.coops[idx].name; DB.coops.splice(idx,1); DB.boards=DB.boards.filter(b=>b.coop!==n); }
+  else if (type==='user') DB.users.splice(idx,1);
+  saveDB(); closeM('confirmModal'); refreshAll();
+  toast('ลบข้อมูลเรียบร้อย','ok');
+}
+
+// ════════════════════════════════════════════════════
+// IMPORT / EXPORT
+// ════════════════════════════════════════════════════
+function dzOver(e)  { e.preventDefault(); e.currentTarget.classList.add('dv'); }
+function dzLeave(e) { e.currentTarget.classList.remove('dv'); }
+function dzDrop(e, target) {
+  e.preventDefault(); e.currentTarget.classList.remove('dv');
+  const f = e.dataTransfer.files[0]; if (f) parseCSV(f, target);
+}
+function handleImport(e, target) { const f=e.target.files[0]; if(f) parseCSV(f,target); e.target.value=''; }
+
+function parseCSV(file, target) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const text = ev.target.result;
+    const lines = text.trim().split('\n').map(l=>l.split(',').map(c=>c.replace(/^"|"$/g,'').trim()));
+    if (lines.length<2) return toast('ไม่พบข้อมูลในไฟล์','err');
+    const headers = lines[0];
+    const rows    = lines.slice(1).map(l=>Object.fromEntries(headers.map((h,i)=>[h,l[i]||''])));
+    showImportPreview(rows, file.name, target);
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+function showImportPreview(rows, filename, target) {
+  pendingImport = rows;
+  pendingImportTarget = target;
+  const type = target==='main' ? document.getElementById('importType').value : 'boards';
+  const preview5 = rows.slice(0,5);
+  const headers  = Object.keys(rows[0]||{});
+  const html = `
+    <div style="margin-top:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:.8rem;font-weight:700;color:var(--T2)">ตัวอย่าง: ${filename} (${rows.length} แถว)</span>
+        <div class="btn-grp">
+          <button class="btn btn-o btn-sm" onclick="cancelImport('${target}')">ยกเลิก</button>
+          <button class="btn btn-g btn-sm" onclick="confirmImport('${target}','${type}')">✅ นำเข้า ${rows.length} แถว</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto;max-height:220px;border:1px solid var(--BD);border-radius:var(--R1)">
+        <table style="width:100%;font-size:.75rem;border-collapse:collapse">
+          <thead><tr>${headers.map(h=>`<th style="background:var(--BG2);padding:6px 10px;text-align:left;border-bottom:2px solid var(--BD);white-space:nowrap">${h}</th>`).join('')}</tr></thead>
+          <tbody>${preview5.map(r=>`<tr>${headers.map(h=>`<td style="padding:6px 10px;border-bottom:1px solid var(--BG2)">${r[h]||''}</td>`).join('')}</tr>`).join('')}</tbody>
+        </table>
+      </div>
+      ${rows.length>5?`<div style="font-size:.72rem;color:var(--T3);padding:6px 10px">... และอีก ${rows.length-5} แถว</div>`:''}
+    </div>`;
+  const el = document.getElementById(target==='portal' ? 'portalImportPreview' : 'importPreview');
+  if (el) el.innerHTML = html;
+}
+
+function cancelImport(target) {
+  pendingImport = null;
+  const el = document.getElementById(target==='portal' ? 'portalImportPreview' : 'importPreview');
+  if (el) el.innerHTML = '';
+}
+
+function confirmImport(target, type) {
+  if (!pendingImport) return;
+  let added=0, skipped=0;
+  if (type==='boards') {
+    pendingImport.forEach(r=>{
+      const name = r['ชื่อ_นามสกุล']||r['name']||'';
+      const coop = r['สหกรณ์']||r['coop']||'';
+      if (!name||!coop) { skipped++; return; }
+      DB.boards.push({
+        id:'b'+Date.now()+Math.random(),
+        name, coop,
+        start:    r['วันเริ่มวาระ']||r['start']||'',
+        end:      r['วันสิ้นสุดวาระ']||r['end']||'',
+        prevY:    parseInt(r['ปีก่อนหน้า']||r['prevY'])||0,
+        prevT:    parseInt(r['วาระก่อนหน้า']||r['prevT'])||0,
+        type:     r['ประเภท']||r['type']||'ปกติ',
+        position: r['ตำแหน่ง']||r['position']||'',
+        note:     r['หมายเหตุ']||r['note']||'',
+      });
+      added++;
+    });
+  } else {
+    pendingImport.forEach(r=>{
+      const name = r['ชื่อสหกรณ์']||r['name']||'';
+      if (!name||DB.coops.find(c=>c.name===name)) { skipped++; return; }
+      DB.coops.push({
+        id:'c'+Date.now()+Math.random(),
+        name, type:r['ประเภท']||r['type']||'',
+        province:r['จังหวัด']||r['province']||'',
+        district:r['อำเภอ']||r['district']||'',
+        group:   r['กลุ่ม']||r['group']||'',
+        phone:   r['โทรศัพท์']||r['phone']||'',
+        email:   r['อีเมล']||r['email']||'',
+        regdate: r['วันจดทะเบียน']||r['regdate']||'',
+      });
+      added++;
+    });
+  }
+  saveDB(); cancelImport(target); refreshAll();
+  toast(`นำเข้าสำเร็จ ${added} แถว (ข้ามไป ${skipped})`, 'ok');
+}
+
+function dlTemplate(type) {
+  let csv, fn;
+  if (type==='boards') {
+    csv = 'ชื่อ_นามสกุล,สหกรณ์,วันเริ่มวาระ,วันสิ้นสุดวาระ,ปีก่อนหน้า,วาระก่อนหน้า,ประเภท,ตำแหน่ง,หมายเหตุ\n';
+    csv += 'นายตัวอย่าง ใจดี,สหกรณ์การเกษตรตัวอย่าง จำกัด,2024-04-01,2026-03-31,0,0,ปกติ,ประธานกรรมการ,';
+    fn = 'template_กรรมการ.csv';
+  } else {
+    csv = 'ชื่อสหกรณ์,ประเภท,จังหวัด,อำเภอ,กลุ่ม,โทรศัพท์,อีเมล,วันจดทะเบียน\n';
+    csv += 'สหกรณ์การเกษตรตัวอย่าง จำกัด,สหกรณ์การเกษตร,นครราชสีมา,เมือง,กลุ่ม 1,044-000000,coop@gmail.com,2000-01-01';
+    fn = 'template_สหกรณ์.csv';
+  }
+  dlCSV('\uFEFF'+csv, fn);
+  toast(`ดาวน์โหลด ${fn} เรียบร้อย`,'ok');
+}
+
+function exportBoardCSV() {
+  const data = filteredBoards.length ? filteredBoards : visibleBoards().map(enrich);
+  const hdr = ['ลำดับ','ชื่อ_นามสกุล','สหกรณ์','วันเริ่มวาระ','วันสิ้นสุดวาระ','ปีปัจจุบัน','ปีก่อนหน้า','รวมปี','รหัสวาระ','ประเภท','สถานะ'];
+  const rows = data.map((b,i)=>[i+1,`"${b.name}"`,`"${b.coop}"`,b.start||'',b.end||'',b.currY,b.prevY||0,b.totalY,b.tc,b.type||'ปกติ',b.st.short].join(','));
+  dlCSV('\uFEFF'+hdr.join(',')+'\n'+rows.join('\n'), `กรรมการ_${today()}.csv`);
+  toast('Export กรรมการ CSV เรียบร้อย','ok');
+}
+
+function exportCoopCSV() {
+  const data = filteredCoops.length ? filteredCoops : visibleCoops();
+  const hdr = ['ลำดับ','ชื่อสหกรณ์','ประเภท','จังหวัด','อำเภอ','กลุ่ม','อีเมล','กรรมการ'];
+  const rows = data.map((c,i)=>[i+1,`"${c.name}"`,c.type||'',c.province||'',c.district||'',c.group||'',c.email||'',DB.boards.filter(b=>b.coop===c.name).length].join(','));
+  dlCSV('\uFEFF'+hdr.join(',')+'\n'+rows.join('\n'), `สหกรณ์_${today()}.csv`);
+  toast('Export สหกรณ์ CSV เรียบร้อย','ok');
+}
+
+function exportAll() { exportBoardCSV(); }
+function dlCSV(csv, fn) {
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
+  a.download=fn; a.click();
+}
+function today() { return new Date().toISOString().slice(0,10); }
+
+// ════════════════════════════════════════════════════
+// GOOGLE SHEETS SYNC
+// ════════════════════════════════════════════════════
+const SYNC_INTERVAL = 30000; // 30 sec
+
+async function syncNow() {
+  const url = CFG.sheetsUrl;
+
+  // โหมด google.script.run (รัน index.html บน GAS โดยตรง)
+  if (typeof google !== 'undefined' && google.script?.run) {
+    setSyncDot('syncing');
+    google.script.run
+      .withSuccessHandler(function(data) {
+        if (data.coops)  DB.coops  = data.coops;
+        if (data.boards) DB.boards = data.boards;
+        if (data.users)  DB.users  = data.users;
+        saveDB(); refreshAll(); setSyncDot('ok');
+        toast('ซิงค์จาก Google Sheets เรียบร้อย','ok');
+      })
+      .withFailureHandler(function(err) {
+        setSyncDot('err'); toast('ซิงค์ไม่สำเร็จ: ' + err.message,'err');
+      })
+      .getAll(CFG.sheetsToken);
+    return;
+  }
+
+  if (!url) { toast('ยังไม่ได้ตั้งค่า Google Sheets URL','warn'); return; }
+  setSyncDot('syncing');
+  try {
+    const res = await fetch(`${url}?action=getAll&token=${CFG.sheetsToken}`);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (data.coops)  DB.coops  = data.coops;
+    if (data.boards) DB.boards = data.boards;
+    if (data.users)  DB.users  = data.users;
+    saveDB(); refreshAll();
+    setSyncDot('ok');
+    toast(`ซิงค์จาก Google Sheets เรียบร้อย (${new Date().toLocaleTimeString('th-TH')})`,'ok');
+  } catch(e) {
+    setSyncDot('err');
+    toast('ซิงค์ไม่สำเร็จ: ' + e.message, 'err');
+  }
+}
+
+async function pushToSheets(type, obj) {
+  // โหมด google.script.run
+  if (typeof google !== 'undefined' && google.script?.run) {
+    google.script.run
+      .withFailureHandler(function(e){ console.warn('push failed:', e); })
+      .saveRow(type, obj, CFG.sheetsToken);
+    return;
+  }
+  // โหมด fetch()
+  const url = CFG.sheetsUrl;
+  if (!url) return;
+  try {
+    await fetch(url, {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ action:'save', type, data:obj, token:CFG.sheetsToken }),
+    });
+  } catch(e) { /* silent */ }
+}
+
+function setSyncDot(state) {
+  const dot = document.getElementById('syncDot');
+  if (!dot) return;
+  dot.style.background = state==='ok'?'var(--G)':state==='err'?'var(--R)':'var(--A)';
+  dot.className = state==='syncing' ? 'sync-dot pulse' : 'sync-dot';
+}
+
+function startAutoSync() {
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(async()=>{ await syncNow(); startAutoSync(); }, SYNC_INTERVAL);
+}
+
+async function testSync() {
+  toast('กำลังทดสอบการเชื่อมต่อ...','info');
+  await syncNow();
+}
+
+function saveSheetUrl() {
+  const url   = document.getElementById('sheetsUrl')?.value.trim();
+  const token = document.getElementById('sheetsToken')?.value.trim();
+  const cid   = document.getElementById('oauthClientId')?.value.trim();
+  if (url)   localStorage.setItem('sheets_url', url);
+  if (token) localStorage.setItem('sheets_token', token);
+  if (cid)   localStorage.setItem('oauth_client_id', cid);
+  toast('บันทึกการตั้งค่าเรียบร้อย','ok');
+  if (url) startAutoSync();
+}
+
+function saveOAuthConfig() {
+  const cid = document.getElementById('oauthClientId')?.value.trim();
+  if (!cid) return toast('กรุณากรอก Client ID','warn');
+  localStorage.setItem('oauth_client_id', cid);
+  toast('บันทึกแล้ว — กำลัง Reload...','ok');
+  setTimeout(()=>location.reload(), 1200);
+}
+
+// ════════════════════════════════════════════════════
+// APPS SCRIPT CODE
+// ════════════════════════════════════════════════════
+const SCRIPT_CODE = `// Google Apps Script — วางใน Extensions → Apps Script
+// แล้ว Deploy → New Deployment → Web App
+// Execute as: Me | Who has access: Anyone
+
+const SS = SpreadsheetApp.getActiveSpreadsheet();
+const TOKEN = PropertiesService.getScriptProperties().getProperty('API_TOKEN') || 'my-secret-token';
+
+function doGet(e) {
+  if (e.parameter.token !== TOKEN) return json({error:'Unauthorized'});
+  const action = e.parameter.action;
+  if (action === 'getAll') return json(getAll());
+  if (action === 'getBoards') return json(getSheet('กรรมการ'));
+  if (action === 'getCoops') return json(getSheet('สหกรณ์'));
+  if (action === 'getUsers') return json(getSheet('ผู้ใช้'));
+  return json({ok:true, message:'API พร้อมใช้งาน'});
+}
+
+function doPost(e) {
+  try {
+    const body = JSON.parse(e.postData.contents);
+    if (body.token !== TOKEN) return json({error:'Unauthorized'});
+    if (body.action === 'save') {
+      saveRow(body.type, body.data);
+      return json({ok:true});
+    }
+  } catch(err) { return json({error:err.message}); }
+}
+
+function getAll() {
+  return {
+    coops:  sheetToJSON('สหกรณ์'),
+    boards: sheetToJSON('กรรมการ'),
+    users:  sheetToJSON('ผู้ใช้'),
+  };
+}
+
+function sheetToJSON(name) {
+  const sh = SS.getSheetByName(name);
+  if (!sh) return [];
+  const vals = sh.getDataRange().getValues();
+  const headers = vals[0];
+  return vals.slice(1)
+    .filter(r => r.some(c => c !== ''))
+    .map(r => Object.fromEntries(headers.map((h,i) => [h, r[i]])));
+}
+
+function saveRow(type, data) {
+  const sheetMap = {board:'กรรมการ', coop:'สหกรณ์', user:'ผู้ใช้'};
+  const sh = SS.getSheetByName(sheetMap[type]);
+  if (!sh) return;
+  const vals = sh.getDataRange().getValues();
+  const headers = vals[0];
+  const idCol = headers.indexOf('id');
+  const existRow = vals.findIndex((r,i) => i>0 && r[idCol]===data.id);
+  const row = headers.map(h => data[h] ?? '');
+  if (existRow > 0) {
+    sh.getRange(existRow+1, 1, 1, row.length).setValues([row]);
+  } else {
+    sh.appendRow(row);
+  }
+}
+
+function json(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ── ตั้งค่า Token ──
+// ไปที่ Project Settings → Script Properties → เพิ่ม API_TOKEN = my-secret-token`;
+
+function showScriptCode() {
+  document.getElementById('scriptCodeContent').textContent = SCRIPT_CODE;
+  openM('scriptModal');
+}
+function copyScriptCode() {
+  navigator.clipboard.writeText(SCRIPT_CODE).then(()=>toast('คัดลอก Code แล้ว','ok'));
+}
+
+// ════════════════════════════════════════════════════
+// FILTER DROPDOWNS
+// ════════════════════════════════════════════════════
+function updateDropdowns() {
+  const coops = visibleCoops();
+  const opts  = coops.map(c=>`<option value="${c.name}">${c.name}</option>`).join('');
+  const fcoop = document.getElementById('fCoop');
+  if (fcoop) fcoop.innerHTML = '<option value="">ทั้งหมด</option>' + opts;
+}
+
+// ════════════════════════════════════════════════════
+// MODAL HELPERS
+// ════════════════════════════════════════════════════
+function openM(id) { document.getElementById(id)?.classList.add('open'); }
+function closeM(id){ document.getElementById(id)?.classList.remove('open'); }
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('overlay')) {
+    document.querySelectorAll('.overlay.open').forEach(m=>m.classList.remove('open'));
+  }
+});
+
+// ════════════════════════════════════════════════════
+// TOAST
+// ════════════════════════════════════════════════════
+function toast(msg, type='') {
+  const icons = { ok:'✅', err:'❌', warn:'⚠️', info:'ℹ️' };
+  const wrap  = document.getElementById('toastWrap');
+  const el    = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  wrap.appendChild(el);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transition='opacity .3s'; setTimeout(()=>el.remove(),300); }, 3800);
+}
+
+// ════════════════════════════════════════════════════
+// REFRESH ALL
+// ════════════════════════════════════════════════════
+function refreshAll() {
+  updateDropdowns();
+  const cur = document.querySelector('.page.on')?.id?.replace('page-','');
+  if (cur==='dashboard') renderDashboard();
+  else if (cur==='portal') renderPortal();
+  else if (cur==='boards') applyBF();
+  else if (cur==='coops') applyCF();
+  else if (cur==='users') renderUsers();
+}
+
+// ════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════
+loadDB();
+
+// Check if Google Identity is available
+if (!window.google) {
+  setTimeout(() => {
+    document.getElementById('googleSignInBtn').style.display = 'none';
+    document.getElementById('btnGoogleFallback').style.display = 'flex';
+  }, 2000);
+}
+</script>
+</body>
+</html>

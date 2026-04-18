@@ -484,6 +484,61 @@ function fixLogin() {
 // ============================================================
 //  TEST FUNCTIONS — ใช้ debug ใน Script Editor
 // ============================================================
+
+// ============================================================
+//  getAll — ใช้กับ google.script.run จาก index.html บน GAS
+// ============================================================
+function getAll(token) {
+  var sess = getSession(token);
+  if (!sess) return { error: 'session หมดอายุ' };
+  var coopsRes  = getCoops(token);
+  var boardsRes = getBoards(token);
+  var usersRes  = getUsers(token);
+  return {
+    coops:  coopsRes.ok  ? coopsRes.data  : [],
+    boards: boardsRes.ok ? boardsRes.data : [],
+    users:  usersRes.ok  ? usersRes.data  : [],
+  };
+}
+
+// ============================================================
+//  saveRow — ใช้กับ google.script.run จาก index.html บน GAS
+// ============================================================
+function saveRow(type, obj, token) {
+  if (type === 'board') {
+    // ตรวจสอบว่ามีอยู่แล้วหรือไม่
+    var ss    = SpreadsheetApp.openById(SHEET_ID);
+    var sheet = ss.getSheetByName(SHEETS.BOARDS);
+    var data  = sheet.getDataRange().getValues();
+    for (var i = 1; i < data.length; i++) {
+      if (String(data[i][0]) === String(obj.id)) {
+        return updateBoard(token, boardFromUI(obj));
+      }
+    }
+    return addBoard(token, boardFromUI(obj));
+  }
+  if (type === 'coop')  return addCoop(token, obj);
+  return { ok: false, error: 'unknown type: ' + type };
+}
+
+// แปลง board object จาก UI (ใช้ start/end/prevY) → format ของ Code.gs
+function boardFromUI(b) {
+  return {
+    id:            b.id,
+    coopId:        b.coopId || b.coop,
+    name:          b.name,
+    dateIn:        b.start  || b.dateIn  || '',
+    dateOut:       b.end    || b.dateOut || '',
+    type:          (b.type === 'แทนตำแหน่ง' || b.type === 'sub') ? 'sub' : 'normal',
+    origDate:      b.origDate    || '',
+    note:          b.note        || '',
+    origTermLabel: b.origTermLabel || '',
+    dateInFirst:   b.dateInFirst   || '',
+    returnSelf:    b.returnSelf    || '',
+    eligibleDate:  b.eligibleDate  || '',
+  };
+}
+
 function testLogin() {
   var result = login('admin', 'admin1234');
   Logger.log(JSON.stringify(result));
